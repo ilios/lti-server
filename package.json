@@ -1,0 +1,12 @@
+{
+  "name": "ilios-lti-server",
+  "version": "0.0.0",
+  "description": "Handles data requests in the LTI format and returns Ilios data.",
+  "main": "index.js",
+  "repository": "https://github.com/ilios/lti-server",
+  "author": "The Ilios Team",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.19.0"
+  }
+}
