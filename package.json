@@ -4,9 +4,22 @@
   "description": "Handles data requests in the LTI format and returns Ilios data.",
   "main": "index.js",
   "repository": "https://github.com/ilios/lti-server",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha && eslint . "
+  },
   "author": "The Ilios Team",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^3.19.0",
+    "eslint-plugin-mocha": "^4.9.0",
+    "mocha": "^3.4.1",
+    "moment": "^2.18.1"
+  },
+  "engines": {
+    "node": "7.7"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^7.4.1"
   }
 }
