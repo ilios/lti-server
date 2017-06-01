@@ -3,7 +3,8 @@
     "apiServer": "https://test-ilios.com",
     "apiNameSpace": "/test/api/v1",
     "ltiUserId": 33,
-    "secret": "secret123",
+    "consumerSecret": "secret123",
+    "iliosSecret": "secret123",
     "ltiPostField": "ext_user_username",
     "iliosMatchField": "authentication-username"
   },
@@ -11,7 +12,8 @@
     "apiServer": "https://second-test-ilios.com",
     "apiNameSpace": "/api/v1",
     "ltiUserId": 11,
-    "secret": "secret456!",
+    "consumerSecret": "secret456!",
+    "iliosSecret": "abcd",
     "ltiPostField": "ext_user_username",
     "iliosMatchField": "authentication-username"
   }
