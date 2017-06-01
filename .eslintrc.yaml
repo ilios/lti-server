@@ -5,7 +5,7 @@
   },
   extends: eslint:recommended,
   parserOptions: {
-    ecmaVersion: 8,
+    ecmaVersion: 7,
   },
   rules: {
     comma-dangle: [2, only-multiline],
