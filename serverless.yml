@@ -1,0 +1,73 @@
+service: ilios-lti-launch
+
+custom:
+  additionalStacks:
+    permanent:
+      Resources:
+        S3BucketData:
+          Type: AWS::S3::Bucket
+          Properties:
+            BucketName: ${self:provider.environment.CONFIG_BUCKET}
+            AccessControl: Private
+          DeletionPolicy : Retain
+
+plugins:
+ - serverless-plugin-additional-stacks
+
+package:
+  exclude:
+    - .env
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  memorySize: 128
+  timeout: 5
+  stage: dev
+  region: us-west-1
+  versionFunctions: false
+  stackTags:
+    Tag1 : lti
+    Tag2 : lti-launch
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource: "arn:aws:s3:::${self:provider.environment.CONFIG_BUCKET}/*"
+    - Effect: "Allow"
+      Action:
+        - "elasticache:*"
+      Resource: "arn:aws:elasticache:::lti-launch/*"
+  environment:
+       LTI_APP_URL: 'https://d4jps70wc8ppm.cloudfront.net'
+       ELASTICACHE_ENDPOINT:
+         Fn::GetAtt:
+           - LtiLaunchRedis
+           - RedisEndpoint.Address
+       CONFIG_BUCKET: 'ilios-lti-launch-configuration'
+
+functions:
+  dashboard:
+    description: Launches the ilios-lti application dashboard
+    handler: handler.dashboard
+    events:
+      - http:
+          path: lti/dashboard
+          method: post
+          integration: lambda-proxy
+
+resources:
+  Resources:
+    LtiLaunchRedis:
+      Type: AWS::ElastiCache::CacheCluster
+      Properties:
+        CacheNodeType: cache.t1.micro
+        ClusterName: lti-launch
+        Engine: redis
+        NumCacheNodes: 1
+        CacheSecurityGroupNames:
+          - Ref: LtiLaunchSecurityGroup
+    LtiLaunchSecurityGroup:
+      Type: AWS::ElastiCache::SecurityGroup
+      Properties:
+        Description: ElastiCache Security

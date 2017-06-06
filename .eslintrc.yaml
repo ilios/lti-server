@@ -11,7 +11,7 @@
     comma-dangle: [2, only-multiline],
     comma-spacing: 2,
     indent: [2, 2], # two-space indentation
-    no-console: [2, { allow: [warn, error] }],
+    no-console: off,
     prefer-const: 2,
     quotes: [2, single, {avoidEscape: true}],
     semi: 2, # require semi-colons

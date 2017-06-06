@@ -39,6 +39,7 @@ describe('Launch Response handler works', async function() {
     const fetch  = null;
     const findIliosUser  = () => Promise.resolve(24);
     const createJWT  = () => 'token';
+    process.env.LTI_APP_URL = 'test-server.com';
     const response = await launchResponse({event, lti, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
@@ -47,6 +48,6 @@ describe('Launch Response handler works', async function() {
     assert.equal(response.body, '');
     assert.ok('headers' in response);
     assert.ok('Location' in response.headers);
-    assert.equal(response.headers.Location, 'https://d4jps70wc8ppm.cloudfront.net/login/token');
+    assert.equal(response.headers.Location, 'test-server.com/login/token');
   });
 });

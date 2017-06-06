@@ -10,3 +10,6 @@ pids
 
 # Dependency directories
 node_modules
+
+# Serverless directories
+.serverless
