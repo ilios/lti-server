@@ -13,7 +13,7 @@ const cli = meow(`
 	  $ generate-url <school-consumer-key> <userId>
 
 	Examples
-	  $ generate-url 16
+	  $ generate-url test-school 24
 	  https://lti-site.com/login/TOKEN
 `);
 const generateUrl = ([consumerKey, userId]) => {
