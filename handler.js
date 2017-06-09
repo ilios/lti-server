@@ -3,7 +3,6 @@
 const lti = require('ims-lti');
 const aws = require('aws-sdk');
 const fetch = require('node-fetch');
-const Redis = require('ioredis');
 const eventToRequest = require('./lib/eventToRequest');
 const readSchoolConfig = require('./lib/readSchoolConfig');
 const launchResponse = require('./lib/launchResponse');
@@ -12,7 +11,7 @@ const createJWT = require('./lib/createJWT');
 
 module.exports.dashboard = (event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
-  launchResponse({event, lti, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser, Redis}).then(response => {
+  launchResponse({event, lti, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser}).then(response => {
     callback(null, response);
   }).catch(error => {
     console.error(error);

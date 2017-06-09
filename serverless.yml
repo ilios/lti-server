@@ -14,10 +14,6 @@ custom:
 plugins:
  - serverless-plugin-additional-stacks
 
-package:
-  exclude:
-    - .env
-
 provider:
   name: aws
   runtime: nodejs6.10
@@ -36,14 +32,13 @@ provider:
       Resource: "arn:aws:s3:::${self:provider.environment.CONFIG_BUCKET}/*"
     - Effect: "Allow"
       Action:
-        - "elasticache:*"
-      Resource: "arn:aws:elasticache:::lti-launch/*"
+        - "sdb:*"
+      Resource: "arn:aws:sdb:${self:provider.region}:*:domain/${self:service}-${opt:stage, self:provider.stage}-LTILaunchUserSimpleDB-*"
+      
   environment:
        LTI_APP_URL: 'https://d4jps70wc8ppm.cloudfront.net'
-       ELASTICACHE_ENDPOINT:
-         Fn::GetAtt:
-           - LtiLaunchRedis
-           - RedisEndpoint.Address
+       USERID_SIMPLEDB_DOMAIN:
+         Ref: LTILaunchUserSimpleDB
        CONFIG_BUCKET: 'ilios-lti-launch-configuration'
 
 functions:
@@ -58,16 +53,7 @@ functions:
 
 resources:
   Resources:
-    LtiLaunchRedis:
-      Type: AWS::ElastiCache::CacheCluster
+    LTILaunchUserSimpleDB:
+      Type: "AWS::SDB::Domain"
       Properties:
-        CacheNodeType: cache.t1.micro
-        ClusterName: lti-launch
-        Engine: redis
-        NumCacheNodes: 1
-        CacheSecurityGroupNames:
-          - Ref: LtiLaunchSecurityGroup
-    LtiLaunchSecurityGroup:
-      Type: AWS::ElastiCache::SecurityGroup
-      Properties:
-        Description: ElastiCache Security
+        Description: LaunchLTI SimpleDB for caching userId values

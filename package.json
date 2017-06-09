@@ -24,8 +24,8 @@
   "dependencies": {
     "aws-sdk": "^2.58.0",
     "ims-lti": "^3.0.2",
-    "ioredis": "^3.1.1",
     "jsonwebtoken": "^7.4.1",
+    "md5": "^2.2.1",
     "meow": "^3.7.0",
     "node-fetch": "^1.7.0",
     "serverless-plugin-additional-stacks": "^1.0.0"
