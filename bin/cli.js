@@ -1,32 +1,32 @@
 #!/usr/bin/env node
 'use strict';
 
-const ltiAppUrl = 'https://d4jps70wc8ppm.cloudfront.net';
-const aws = require('aws-sdk');
-const readSchoolConfig = require('../lib/readSchoolConfig');
 const createJWT = require('../lib/createJWT');
 
 const meow = require('meow');
 
 const cli = meow(`
 	Usage
-	  $ generate-url <school-consumer-key> <userId>
+	  $ generate-url <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>
 
 	Examples
 	  $ generate-url test-school 24
 	  https://lti-site.com/login/TOKEN
 `);
-const generateUrl = ([consumerKey, userId]) => {
-  if (undefined == consumerKey || undefined == userId) {
-    process.stderr.write('Missing parameters <consumerKey> and <userId> are required.\n');
+const generateUrl = ([ltiAppUrl, apiServer, apiNameSpace, iliosSecret, userId]) => {
+  if (
+		undefined == ltiAppUrl ||
+		undefined == apiServer ||
+		undefined == apiNameSpace ||
+		undefined == iliosSecret ||
+		undefined == userId) {
+    process.stderr.write('Missing parameters <apiServer> <apiNameSpace> <iliosSecret> <userId> are required.\n');
     cli.showHelp([1]);
   }
-  readSchoolConfig(consumerKey, aws).then(config => {
-    const token = createJWT(userId, config.apiServer, config.apiNameSpace, config.iliosSecret);
-    const targetUrl = `${ltiAppUrl}/login/${token}`;
+  const token = createJWT(userId, apiServer, apiNameSpace, iliosSecret);
+  const targetUrl = `${ltiAppUrl}/login/${token}`;
 
-    process.stdout.write(targetUrl + '\n');
-  });
+  process.stdout.write(targetUrl + '\n');
 };
 
 generateUrl(cli.input);
