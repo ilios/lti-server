@@ -1,8 +1,12 @@
 language: node_js
 node_js:
-  - "7"
+  - "6"
 
 cache:
   directories:
     - $HOME/.npm
     - $HOME/.cache
+
+before_install:
+  - if [[ `npm -v` != 5* ]]; then npm install -g npm@5; fi
+  - npm -v
