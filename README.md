@@ -5,7 +5,20 @@
 ## Install
 
 ```
-$ yarn install
+$ npm install
+$ npm install -g serverless
+```
+
+## Running tests
+
+```
+$ npm test
+```
+
+## Deploy
+
+```
+$ serverless deploy --stage=dev
 ```
 
 ## CLI
@@ -15,9 +28,9 @@ $ generate-url --help
   Handles data requests in the LTI format and returns Ilios data.
 
   Usage
-    $ generate-url <school-consumer-key> <userId>
+    $ generate-url <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>
 
   Examples
-    $ generate-url test-school 24
+    $ generate-url 'https://localhost' 'https://demo-api.com' 'api/v1' 'secret' 24
     https://lti-site.com/login/TOKEN
 ```
