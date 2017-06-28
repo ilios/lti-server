@@ -2,7 +2,7 @@ service: ilios-lti-launch
 
 custom:
   ltiDashboard-dev: 'https://d4jps70wc8ppm.cloudfront.net'
-  ltiDashboard-prod: 'https://d3kbdgyk7xrg4r.cloudfront.net'
+  ltiDashboard-prod: 'https://lti-dashboard.iliosproject.org'
   additionalStacks:
     permanent:
       Resources:
