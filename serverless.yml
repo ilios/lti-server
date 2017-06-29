@@ -1,6 +1,8 @@
 service: ilios-lti-launch
 
 custom:
+  ltiDashboard-dev: 'https://d4jps70wc8ppm.cloudfront.net'
+  ltiDashboard-prod: 'https://lti-dashboard.iliosproject.org'
   additionalStacks:
     permanent:
       Resources:
@@ -34,12 +36,12 @@ provider:
       Action:
         - "sdb:*"
       Resource: "arn:aws:sdb:${self:provider.region}:*:domain/${self:service}-${opt:stage, self:provider.stage}-LTILaunchUserSimpleDB-*"
-      
+
   environment:
-       LTI_APP_URL: 'https://d4jps70wc8ppm.cloudfront.net'
+       LTI_APP_URL: ${self:custom.ltiDashboard-${opt:stage, self:provider.stage}}
        USERID_SIMPLEDB_DOMAIN:
          Ref: LTILaunchUserSimpleDB
-       CONFIG_BUCKET: 'ilios-lti-launch-configuration'
+       CONFIG_BUCKET: 'ilios-lti-launch-configuration-${opt:stage, self:provider.stage}'
 
 functions:
   dashboard:
