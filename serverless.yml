@@ -49,7 +49,7 @@ functions:
     handler: handler.dashboard
     events:
       - http:
-          path: lti/dashboard
+          path: dashboard
           method: post
           integration: lambda-proxy
 
