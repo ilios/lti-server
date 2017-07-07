@@ -10,3 +10,7 @@ cache:
 before_install:
   - if [[ `npm -v` != 5* ]]; then npm install -g npm@5; fi
   - npm -v
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && node_modules/.bin/serverless deploy --stage=dev  --verbose
+  - test $TRAVIS_TAG && node_modules/.bin/serverless deploy --stage=production --verbose
