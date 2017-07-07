@@ -1,6 +1,6 @@
 {
   "name": "ilios-lti-server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Handles data requests in the LTI format and returns Ilios data.",
   "main": "index.js",
   "repository": "https://github.com/ilios/lti-server",
