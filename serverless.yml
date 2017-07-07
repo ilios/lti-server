@@ -1,7 +1,7 @@
 service: ilios-lti-launch
 
 custom:
-  ltiDashboard-dev: 'https://d4jps70wc8ppm.cloudfront.net'
+  ltiDashboard-dev: 'https://dev-lti-dashboard.iliosproject.org'
   ltiDashboard-prod: 'https://lti-dashboard.iliosproject.org'
   additionalStacks:
     permanent:
@@ -22,7 +22,7 @@ provider:
   memorySize: 128
   timeout: 5
   stage: dev
-  region: us-west-1
+  region: us-west-2
   versionFunctions: false
   stackTags:
     Tag1 : lti
