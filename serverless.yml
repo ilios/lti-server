@@ -52,6 +52,14 @@ functions:
           path: dashboard
           method: post
           integration: lambda-proxy
+  payload:
+    description: Displays LTI payload data from POST request to the user
+    handler: handler.payload
+    events:
+      - http:
+          path: payload
+          method: post
+          integration: lambda-proxy
 
 resources:
   Resources:
