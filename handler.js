@@ -25,3 +25,28 @@ module.exports.dashboard = (event, context, callback) => {
     callback(null, response);
   });
 };
+
+module.exports.payload = (event, context, callback) => {
+  console.log('Starting generation of payload analysis');
+  const request = eventToRequest(event);
+  console.log('Request Data:', request);
+  const { protocol, url, body, method, headers } = request;
+  const response = {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'text/html'
+    },
+    body: `<html>
+      <body>
+        <h2>LTI POST Payload:</h2>
+        <p><strong>Protocol:</strong> ${protocol}</p>
+        <p><strong>URL:</strong> ${url}</p>
+        <p><strong>Body:</strong> ${JSON.stringify(body)}</p>
+        <p><strong>Method:</strong> ${method}</p>
+        <p><strong>Host Headers:</strong> ${headers.host}</p>
+      </body>
+    </html>`
+  };
+  callback(null, response);
+  console.log('Done generating payload analysis');
+};
