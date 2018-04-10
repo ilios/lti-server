@@ -19,7 +19,7 @@
     "moment": "^2.21.0"
   },
   "engines": {
-    "node": "6.10"
+    "node": "8.10"
   },
   "dependencies": {
     "aws-sdk": "^2.212.1",
