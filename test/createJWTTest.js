@@ -10,13 +10,14 @@ describe('Generates a JWT from provided data', function() {
   const apiHost = 'https://example.com';
   const apiNameSpace = '/api/v1';
   const secret = 'secret';
-  const token = createJWT(userId, apiHost, apiNameSpace, secret);
+  const ltiAppShortname = 'ilios-lti-app';
+  const token = createJWT(ltiAppShortname, userId, apiHost, apiNameSpace, secret);
 
   assert.ok(token.length > 200);
   const obj = jwt.decode(token);
   it('has the right passed values', function() {
     assert.equal(obj.iss, 'ilios-lti-server');
-    assert.equal(obj.aud, 'ilios-lti-app');
+    assert.equal(obj.aud, ltiAppShortname);
 
     const expiresAt = moment(obj.exp, 'X');
     const now = moment();
