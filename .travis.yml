@@ -10,10 +10,6 @@ cache:
 before_install:
   - if [[ `npm -v` != 5* ]]; then npm install -g npm@5; fi
   - npm -v
-  - npm install -g greenkeeper-lockfile@1
-
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
 
 after_success:
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && node_modules/.bin/serverless deploy --stage=dev  --verbose
