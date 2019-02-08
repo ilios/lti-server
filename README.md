@@ -1,7 +1,5 @@
 # Ilios LTI Launch Server [![Build Status](https://travis-ci.org/ilios/lti-server.svg?branch=master)](https://travis-ci.org/ilios/lti-server)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ilios/lti-server.svg)](https://greenkeeper.io/)
-
 > LTI Provider for launching an Ilios dashboard
 
 ## Install
