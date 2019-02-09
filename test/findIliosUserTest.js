@@ -23,8 +23,8 @@ describe('Get the ID for a user', function() {
   it('calls the api and returns a userId when there is no data in the cache', async function() {
     const SimpleDB = function(){
       this.getAttributes = ({DomainName, ItemName}) => {
-        assert.equal(DomainName, 'test-domain');
-        assert.equal(ItemName, keyHash);
+        assert.strictEqual(DomainName, 'test-domain');
+        assert.strictEqual(ItemName, keyHash);
         return {
           async promise(){
             return {};
@@ -32,9 +32,9 @@ describe('Get the ID for a user', function() {
         };
       };
       this.putAttributes = ({DomainName, ItemName, Attributes}) => {
-        assert.equal(DomainName, 'test-domain');
-        assert.equal(ItemName, keyHash);
-        assert.deepEqual(Attributes, [ {Name: 'userId', Value: 24} ]);
+        assert.strictEqual(DomainName, 'test-domain');
+        assert.strictEqual(ItemName, keyHash);
+        assert.deepStrictEqual(Attributes, [ {Name: 'userId', Value: 24} ]);
 
         return {
           async promise(){
@@ -45,7 +45,7 @@ describe('Get the ID for a user', function() {
     };
     const aws = { SimpleDB };
     const fetch = async (url) => {
-      assert.equal(url, `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${searchString}`);
+      assert.strictEqual(url, `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${searchString}`);
       return {
         json(){
           return {
@@ -57,13 +57,13 @@ describe('Get the ID for a user', function() {
       };
     };
     const result = await findIliosUser({fetch, createJWT, config, searchString, aws});
-    assert.equal(result, 24);
+    assert.strictEqual(result, 24);
   });
   it('Users the id in the cache when it exists', async function() {
     const SimpleDB = function(){
       this.getAttributes = ({DomainName, ItemName}) => {
-        assert.equal(DomainName, 'test-domain');
-        assert.equal(ItemName, keyHash);
+        assert.strictEqual(DomainName, 'test-domain');
+        assert.strictEqual(ItemName, keyHash);
         return {
           async promise(){
             return {
@@ -81,13 +81,13 @@ describe('Get the ID for a user', function() {
     const aws = { SimpleDB };
     const fetch = null;
     const result = await findIliosUser({fetch, createJWT, config, searchString, aws});
-    assert.equal(result, 11);
+    assert.strictEqual(result, 11);
   });
   it('dies well when a bad search is performed', async function() {
     const SimpleDB = function(){
       this.getAttributes = ({DomainName, ItemName}) => {
-        assert.equal(DomainName, 'test-domain');
-        assert.equal(ItemName, keyHash);
+        assert.strictEqual(DomainName, 'test-domain');
+        assert.strictEqual(ItemName, keyHash);
         return {
           async promise(){
             return {};
@@ -108,7 +108,7 @@ describe('Get the ID for a user', function() {
     try {
       await findIliosUser({fetch, createJWT, config, searchString, aws});
     } catch(e) {
-      assert.equal(e, `Unable to find Ilios account for ${searchString}.`);
+      assert.strictEqual(e, `Unable to find Ilios account for ${searchString}.`);
     }
   });
 });
