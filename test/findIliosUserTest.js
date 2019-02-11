@@ -2,7 +2,8 @@
 
 const findIliosUser = require('../lib/findIliosUser');
 const assert = require('assert');
-const md5 = require('md5');
+const crypto = require('crypto');
+const sha256 = x => crypto.createHash('sha256').update(x, 'utf8').digest('hex');
 
 describe('Get the ID for a user', function() {
   const config = {
@@ -17,7 +18,7 @@ describe('Get the ID for a user', function() {
 
   const createJWT = (id) => `TOKEN${id}`;
   const key = `${config.apiServer}:${config.apiNameSpace}:${config.ltiPostField}:${config.iliosMatchField}:userId:${searchString}`;
-  const keyHash = md5(key);
+  const keyHash = sha256(key);
   process.env.USERID_SIMPLEDB_DOMAIN = 'test-domain';
 
   it('calls the api and returns a userId when there is no data in the cache', async function() {
