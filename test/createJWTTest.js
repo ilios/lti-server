@@ -15,8 +15,8 @@ describe('Generates a JWT from provided data', function() {
   assert.ok(token.length > 200);
   const obj = jwt.decode(token);
   it('has the right passed values', function() {
-    assert.equal(obj.iss, 'ilios-lti-server');
-    assert.equal(obj.aud, 'ilios-lti-app');
+    assert.strictEqual(obj.iss, 'ilios-lti-server');
+    assert.strictEqual(obj.aud, 'ilios-lti-app');
 
     const expiresAt = moment(obj.exp, 'X');
     const now = moment();
@@ -24,9 +24,9 @@ describe('Generates a JWT from provided data', function() {
     assert.ok(diff < 61);
   });
   it('has the right default values', function() {
-    assert.equal(obj.user_id, userId);
-    assert.equal(obj.apiHost, apiHost);
-    assert.equal(obj.apiNameSpace, apiNameSpace);
+    assert.strictEqual(obj.user_id, userId);
+    assert.strictEqual(obj.apiHost, apiHost);
+    assert.strictEqual(obj.apiNameSpace, apiNameSpace);
   });
   it('expires in less than 60 seconds', function() {
     const expiresAt = moment(obj.exp, 'X');

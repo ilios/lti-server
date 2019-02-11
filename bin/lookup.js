@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 'use strict';
 
 const findIliosUser = require('../lib/findIliosUser');

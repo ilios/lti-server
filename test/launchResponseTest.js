@@ -43,11 +43,11 @@ describe('Launch Response handler works', async function() {
     const response = await launchResponse({event, lti, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
-    assert.equal(response.statusCode, 302);
+    assert.strictEqual(response.statusCode, 302);
     assert.ok('body' in response);
-    assert.equal(response.body, '');
+    assert.strictEqual(response.body, '');
     assert.ok('headers' in response);
     assert.ok('Location' in response.headers);
-    assert.equal(response.headers.Location, 'test-server.com/login/token');
+    assert.strictEqual(response.headers.Location, 'test-server.com/login/token');
   });
 });
