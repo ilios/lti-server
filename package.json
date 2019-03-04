@@ -23,7 +23,7 @@
     "node": "8.10"
   },
   "dependencies": {
-    "aws-sdk": "^2.412.0",
+    "aws-sdk": "^2.413.0",
     "ims-lti": "^3.0.2",
     "jsonwebtoken": "^8.5.0",
     "meow": "^5.0.0",
