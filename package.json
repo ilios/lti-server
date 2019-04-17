@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "aws-sdk": "^2.439.0",
-    "ims-lti": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
     "meow": "^5.0.0",
     "node-fetch": "^2.1.1",
