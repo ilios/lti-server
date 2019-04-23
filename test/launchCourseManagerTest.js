@@ -34,7 +34,7 @@ describe('Course Response handler works', async function() {
     const fetch  = null;
     const findIliosUser  = () => Promise.resolve(24);
     const createJWT  = () => 'token';
-    process.env.LTI_APP_URL = 'test-server.com';
+    process.env.COURSE_MANAGER_APP_URL = 'test-course-server.com';
     const response = await launchCourseManager({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
@@ -43,6 +43,6 @@ describe('Course Response handler works', async function() {
     assert.strictEqual(response.body, '');
     assert.ok('headers' in response);
     assert.ok('Location' in response.headers);
-    assert.strictEqual(response.headers.Location, 'test-server.com/login/token?course_id=13');
+    assert.strictEqual(response.headers.Location, 'test-course-server.com/login/token?course_id=13');
   });
 });

@@ -33,7 +33,7 @@ describe('Dashboard Response handler works', async function() {
     const fetch  = null;
     const findIliosUser  = () => Promise.resolve(24);
     const createJWT  = () => 'token';
-    process.env.LTI_APP_URL = 'test-server.com';
+    process.env.DASHBOARD_APP_URL = 'test-dash-server.com';
     const response = await launchDashboard({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
@@ -42,6 +42,6 @@ describe('Dashboard Response handler works', async function() {
     assert.strictEqual(response.body, '');
     assert.ok('headers' in response);
     assert.ok('Location' in response.headers);
-    assert.strictEqual(response.headers.Location, 'test-server.com/login/token');
+    assert.strictEqual(response.headers.Location, 'test-dash-server.com/login/token');
   });
 });
