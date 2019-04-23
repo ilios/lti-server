@@ -4,7 +4,7 @@ const aws = require('aws-sdk');
 const fetch = require('node-fetch');
 const eventToRequest = require('./lib/eventToRequest');
 const readSchoolConfig = require('./lib/readSchoolConfig');
-const launchResponse = require('./lib/launchResponse');
+const launchDashboard = require('./lib/launchDashboard');
 const findIliosUser = require('./lib/findIliosUser');
 const createJWT = require('./lib/createJWT');
 const ltiRequestValidator = require('./lib/ltiRequestValidator');
@@ -12,7 +12,7 @@ const ltiRequestValidator = require('./lib/ltiRequestValidator');
 module.exports.dashboard = async(event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
-    const response = await launchResponse({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
+    const response = await launchDashboard({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
     callback(null, response);
   } catch (error) {
     console.error(error);

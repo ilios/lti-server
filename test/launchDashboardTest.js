@@ -1,8 +1,8 @@
 'use strict';
 
-const launchResponse = require('../lib/launchResponse');
+const launchDashboard = require('../lib/launchDashboard');
 const assert = require('assert');
-describe('Launch Response handler works', async function() {
+describe('Dashboard Response handler works', async function() {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
     const eventToRequest = () => {
@@ -34,7 +34,7 @@ describe('Launch Response handler works', async function() {
     const findIliosUser  = () => Promise.resolve(24);
     const createJWT  = () => 'token';
     process.env.LTI_APP_URL = 'test-server.com';
-    const response = await launchResponse({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
+    const response = await launchDashboard({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
     assert.strictEqual(response.statusCode, 302);
