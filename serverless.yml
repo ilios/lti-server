@@ -52,6 +52,14 @@ functions:
           path: dashboard
           method: post
           integration: lambda-proxy
+  courseManager:
+    description: Launches the ilios-lti course manager
+    handler: handler.courseManager
+    events:
+      - http:
+          path: courseManager
+          method: post
+          integration: lambda-proxy
   payload:
     description: Displays LTI payload data from POST request to the user
     handler: handler.payload
