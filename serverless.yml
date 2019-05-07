@@ -3,6 +3,8 @@ service: ilios-lti-launch
 custom:
   ltiDashboard-dev: 'https://dev-lti-dashboard.iliosproject.org'
   ltiDashboard-prod: 'https://lti-dashboard.iliosproject.org'
+  ltiCourseManager-dev: 'https://dev-lti-course-manager.iliosproject.org'
+  ltiCourseManager-prod: 'https://lti-course-manager.iliosproject.org'
   additionalStacks:
     permanent:
       Resources:
@@ -38,7 +40,8 @@ provider:
       Resource: "arn:aws:sdb:${self:provider.region}:*:domain/${self:service}-${opt:stage, self:provider.stage}-LTILaunchUserSimpleDB-*"
 
   environment:
-       LTI_APP_URL: ${self:custom.ltiDashboard-${opt:stage, self:provider.stage}}
+       DASHBOARD_APP_URL: ${self:custom.ltiDashboard-${opt:stage, self:provider.stage}}
+       COURSE_MANAGER_APP_URL: ${self:custom.ltiCourseManager-${opt:stage, self:provider.stage}}
        USERID_SIMPLEDB_DOMAIN:
          Ref: LTILaunchUserSimpleDB
        CONFIG_BUCKET: 'ilios-lti-launch-configuration-${opt:stage, self:provider.stage}'
@@ -50,6 +53,14 @@ functions:
     events:
       - http:
           path: dashboard
+          method: post
+          integration: lambda-proxy
+  courseManager:
+    description: Launches the ilios-lti course manager
+    handler: handler.courseManager
+    events:
+      - http:
+          path: courseManager
           method: post
           integration: lambda-proxy
   payload:

@@ -1,8 +1,8 @@
 'use strict';
 
-const launchResponse = require('../lib/launchResponse');
+const launchDashboard = require('../lib/launchDashboard');
 const assert = require('assert');
-describe('Launch Response handler works', async function() {
+describe('Dashboard Response handler works', async function() {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
     const eventToRequest = () => {
@@ -33,8 +33,8 @@ describe('Launch Response handler works', async function() {
     const fetch  = null;
     const findIliosUser  = () => Promise.resolve(24);
     const createJWT  = () => 'token';
-    process.env.LTI_APP_URL = 'test-server.com';
-    const response = await launchResponse({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
+    process.env.DASHBOARD_APP_URL = 'test-dash-server.com';
+    const response = await launchDashboard({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
 
     assert.ok('statusCode' in response);
     assert.strictEqual(response.statusCode, 302);
@@ -42,6 +42,6 @@ describe('Launch Response handler works', async function() {
     assert.strictEqual(response.body, '');
     assert.ok('headers' in response);
     assert.ok('Location' in response.headers);
-    assert.strictEqual(response.headers.Location, 'test-server.com/login/token');
+    assert.strictEqual(response.headers.Location, 'test-dash-server.com/login/token');
   });
 });
