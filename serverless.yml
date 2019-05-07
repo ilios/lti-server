@@ -60,7 +60,7 @@ functions:
     handler: handler.courseManager
     events:
       - http:
-          path: courseManager
+          path: course-manager
           method: post
           integration: lambda-proxy
   payload:
