@@ -15,7 +15,7 @@
   "devDependencies": {
     "eslint": "^6.2.2",
     "eslint-plugin-mocha": "^6.1.0",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-node": "^9.2.0",
     "mocha": "^6.2.0",
     "moment": "^2.21.0"
   },
