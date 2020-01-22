@@ -23,7 +23,7 @@
     "node": "12"
   },
   "dependencies": {
-    "aws-sdk": "^2.607.0",
+    "aws-sdk": "^2.608.0",
     "jsonwebtoken": "^8.5.1",
     "meow": "^6.0.0",
     "node-fetch": "^2.6.0",
