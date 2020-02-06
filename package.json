@@ -8,7 +8,9 @@
     "generate-url": "bin/cli.js"
   },
   "scripts": {
-    "test": "mocha && eslint . "
+    "test": "mocha && eslint . ",
+    "deploy:production": "serverless deploy --stage=prod --verbose",
+    "deploy:dev": "serverless deploy --stage=dev  --verbose"
   },
   "author": "The Ilios Team",
   "license": "MIT",
