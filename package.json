@@ -30,6 +30,6 @@
     "meow": "^6.1.0",
     "node-fetch": "^2.6.0",
     "serverless": "^1.67.0",
-    "serverless-plugin-additional-stacks": "^1.3.0"
+    "serverless-plugin-additional-stacks": "^1.4.0"
   }
 }
