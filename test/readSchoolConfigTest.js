@@ -34,6 +34,7 @@ describe('Read the configuration for a school', function() {
     assert.strictEqual(result.ltiPostField, 'ext_user_username', 'ltiPostField is correct');
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
+    assert.strictEqual(result.supportEmailAddress, 'support@example.com', 'support email is correct');
   });
   it('reads the second school correctly', async function() {
     const result = await readSchoolConfig('second-school-config', aws);
@@ -51,6 +52,7 @@ describe('Read the configuration for a school', function() {
     assert.strictEqual(result.ltiPostField, 'ext_user_username', 'ltiPostField is correct');
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
+    assert.strictEqual(result.supportEmailAddress, 'support@iliosproject.org', 'sends default support email if there is not one');
   });
   it('dies well when a bad config is requested', async function() {
     try {

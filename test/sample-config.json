@@ -6,7 +6,8 @@
     "consumerSecret": "secret123",
     "iliosSecret": "secret123",
     "ltiPostField": "ext_user_username",
-    "iliosMatchField": "authentication-username"
+    "iliosMatchField": "authentication-username",
+    "supportEmailAddress": "support@example.com"
   },
   "second-school-config": {
     "apiServer": "https://second-test-ilios.com",

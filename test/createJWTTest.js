@@ -9,8 +9,9 @@ describe('Generates a JWT from provided data', function() {
   const userId = 24;
   const apiHost = 'https://example.com';
   const apiNameSpace = '/api/v1';
+  const supportEmailAddress = 'support@iliosproject.org';
   const secret = 'secret';
-  const token = createJWT(userId, apiHost, apiNameSpace, secret);
+  const token = createJWT(userId, apiHost, apiNameSpace, supportEmailAddress, secret);
 
   assert.ok(token.length > 200);
   const obj = jwt.decode(token);
@@ -27,6 +28,7 @@ describe('Generates a JWT from provided data', function() {
     assert.strictEqual(obj.user_id, userId);
     assert.strictEqual(obj.apiHost, apiHost);
     assert.strictEqual(obj.apiNameSpace, apiNameSpace);
+    assert.strictEqual(obj.supportEmailAddress, supportEmailAddress);
   });
   it('expires in less than 60 seconds', function() {
     const expiresAt = moment(obj.exp, 'X');
