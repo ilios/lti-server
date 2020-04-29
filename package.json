@@ -29,7 +29,7 @@
     "jsonwebtoken": "^8.5.1",
     "meow": "^6.1.0",
     "node-fetch": "^2.6.0",
-    "serverless": "^1.68.0",
+    "serverless": "^1.69.0",
     "serverless-plugin-additional-stacks": "^1.4.0"
   }
 }
