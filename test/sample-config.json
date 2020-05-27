@@ -1,7 +1,7 @@
 {
   "demo-school-config": {
     "apiServer": "https://test-ilios.com",
-    "apiNameSpace": "/test/api/v1",
+    "apiNameSpace": "/test/api/v2",
     "ltiUserId": 33,
     "consumerSecret": "secret123",
     "iliosSecret": "secret123",
@@ -10,7 +10,7 @@
   },
   "second-school-config": {
     "apiServer": "https://second-test-ilios.com",
-    "apiNameSpace": "/api/v1",
+    "apiNameSpace": "/api/v2",
     "ltiUserId": 11,
     "consumerSecret": "secret456!",
     "iliosSecret": "abcd",

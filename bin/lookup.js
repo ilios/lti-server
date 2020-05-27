@@ -12,7 +12,7 @@ const cli = meow(`
     $ lookup <ltiUserId> <apiServer> <apiNameSpace> <iliosSecret> <searchString>
 
   Examples
-    $ lookup 61 'https://demo-api.com' 'api/v1' 'secret' test@example.edu
+    $ lookup 61 'https://demo-api.com' 'api/v2' 'secret' test@example.edu
 `);
 const lookup = ([ltiUserId, apiServer, apiNameSpace, iliosSecret, searchString]) => {
   if (
