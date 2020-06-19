@@ -19,7 +19,7 @@
     "eslint-plugin-mocha": "^7.0.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^8.0.1",
-    "moment": "^2.26.0"
+    "moment": "^2.27.0"
   },
   "engines": {
     "node": "12"
