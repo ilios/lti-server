@@ -2,12 +2,12 @@ name: Update Transitive Dependencies
 
 on:
   schedule:
-    - cron: '15 14 * * 1' # weekly, on Monday morning (UTC)
+    - cron: '15 11 * * 1' # weekly, on Monday morning (UTC)
 
 jobs:
   update:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -31,6 +31,4 @@ jobs:
 
             [1]: https://github.com/peter-evans/create-pull-request
           branch: auto-update-dependencies
-          committer: Zorgbort <info@iliosproject.org>
-          author: Zorgbort <info@iliosproject.org>
-          labels: dependencies
+          labels: dependencies,autoupdate
