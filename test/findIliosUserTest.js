@@ -8,7 +8,7 @@ const sha256 = x => crypto.createHash('sha256').update(x, 'utf8').digest('hex');
 describe('Get the ID for a user', function () {
   const config = {
     apiServer: 'https://test-ilios.com',
-    apiNameSpace: '/test/api/v2',
+    apiNameSpace: '/test/api/v3',
     ltiUserId: 33,
     secret: 'secret123',
     ltiPostField: 'ext_user_username',

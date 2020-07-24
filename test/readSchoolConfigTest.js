@@ -23,7 +23,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('apiServer' in result, 'result contains apiServer');
     assert.strictEqual(result.apiServer, 'https://test-ilios.com', 'apiServer is correct');
     assert.ok('apiNameSpace' in result, 'result contains apiNameSpace');
-    assert.strictEqual(result.apiNameSpace, '/test/api/v2', 'apiNameSpace is correct');
+    assert.strictEqual(result.apiNameSpace, '/test/api/v3', 'apiNameSpace is correct');
     assert.ok('ltiUserId' in result, 'result contains ltiUserId');
     assert.strictEqual(result.ltiUserId, 33, 'ltiUserId is correct');
     assert.ok('consumerSecret' in result, 'result contains consumerSecret');
@@ -40,7 +40,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('apiServer' in result, 'result contains apiServer');
     assert.strictEqual(result.apiServer, 'https://second-test-ilios.com', 'apiServer is correct');
     assert.ok('apiNameSpace' in result, 'result contains apiNameSpace');
-    assert.strictEqual(result.apiNameSpace, '/api/v2', 'apiNameSpace is correct');
+    assert.strictEqual(result.apiNameSpace, '/api/v3', 'apiNameSpace is correct');
     assert.ok('ltiUserId' in result, 'result contains ltiUserId');
     assert.strictEqual(result.ltiUserId, 11, 'ltiUserId is correct');
     assert.ok('consumerSecret' in result, 'result contains consumerSecret');

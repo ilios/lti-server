@@ -8,7 +8,7 @@ const moment = require('moment');
 describe('Generates a JWT from provided data', function () {
   const userId = 24;
   const apiHost = 'https://example.com';
-  const apiNameSpace = '/api/v2';
+  const apiNameSpace = '/api/v3';
   const secret = 'secret';
   const token = createJWT(userId, apiHost, apiNameSpace, secret);
 
