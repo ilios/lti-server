@@ -31,6 +31,6 @@ $ generate-url --help
     $ generate-url <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>
 
   Examples
-    $ generate-url 'https://localhost' 'https://demo-api.com' 'api/v2' 'secret' 24
+    $ generate-url 'https://localhost' 'https://demo-api.com' 'api/v3' 'secret' 24
     https://lti-site.com/login/TOKEN
 ```
