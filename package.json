@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.6.0",
-    "eslint-plugin-mocha": "^7.0.0",
+    "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^8.1.1",
     "moment": "^2.27.0",
