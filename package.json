@@ -18,7 +18,7 @@
     "eslint": "^7.6.0",
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "mocha": "^8.1.1",
+    "mocha": "^8.1.2",
     "moment": "^2.27.0",
     "serverless": "^1.80.0",
     "serverless-plugin-additional-stacks": "^1.4.0"
