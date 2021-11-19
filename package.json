@@ -29,7 +29,7 @@
   "dependencies": {
     "aws-sdk": "^2.1032.0",
     "jsonwebtoken": "^8.5.1",
-    "meow": "^9.0.0",
+    "meow": "^10.1.1",
     "node-fetch": "^2.6.0"
   }
 }
