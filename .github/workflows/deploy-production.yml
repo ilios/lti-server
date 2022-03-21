@@ -10,10 +10,10 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 14
       - run: npm ci
       - run: npm test
 
@@ -22,11 +22,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14
+      uses: actions/setup-node@v3
       with:
-        node-version: 12
+        node-version: 14
     - name: install dependencies
       run: npm ci
     - name: Serverless Deploy
