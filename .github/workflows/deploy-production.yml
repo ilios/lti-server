@@ -5,6 +5,8 @@ on:
     tags:
       - '*'
 
+concurrency: deploy-production
+
 jobs:
   test:
     name: Run Tests

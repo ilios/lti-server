@@ -5,6 +5,8 @@ on:
     branches:
       - master
 
+concurrency: deploy-dev
+
 jobs:
   test:
     name: Run Tests
