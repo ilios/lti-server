@@ -1,9 +1,7 @@
-'use strict';
-
-const findIliosUser = require('../lib/findIliosUser');
-const assert = require('assert');
-const crypto = require('crypto');
-const sha256 = x => crypto.createHash('sha256').update(x, 'utf8').digest('hex');
+import findIliosUser from '../lib/findIliosUser.js';
+import assert from 'assert';
+import { createHash } from 'crypto';
+const sha256 = x => createHash('sha256').update(x, 'utf8').digest('hex');
 
 describe('Get the ID for a user', function () {
   const config = {

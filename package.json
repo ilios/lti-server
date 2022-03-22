@@ -2,16 +2,14 @@
   "name": "ilios-lti-server",
   "version": "2.5.0",
   "description": "Handles data requests in the LTI format and returns Ilios data.",
-  "main": "index.js",
+  "exports": "./index.js",
   "repository": "https://github.com/ilios/lti-server",
-  "bin": {
-    "generate-url": "bin/cli.js"
-  },
   "scripts": {
     "test": "mocha && eslint . ",
     "deploy:production": "serverless deploy --stage=prod --verbose",
     "deploy:dev": "serverless deploy --stage=dev  --verbose"
   },
+  "type": "module",
   "author": "The Ilios Team",
   "license": "MIT",
   "devDependencies": {
@@ -24,7 +22,7 @@
     "serverless-plugin-additional-stacks": "^1.4.0"
   },
   "engines": {
-    "node": "14"
+    "node": "^14.13.1"
   },
   "dependencies": {
     "aws-sdk": "^2.1097.0",

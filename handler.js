@@ -1,16 +1,14 @@
-'use strict';
+import aws from 'aws-sdk';
+import fetch from 'node-fetch';
+import eventToRequest from './lib/eventToRequest.js';
+import readSchoolConfig from './lib/readSchoolConfig.js';
+import launchDashboard from './lib/launchDashboard.js';
+import launchCourseManager from './lib/launchCourseManager.js';
+import findIliosUser from './lib/findIliosUser.js';
+import createJWT from './lib/createJWT.js';
+import ltiRequestValidator from './lib/ltiRequestValidator.js';
 
-const aws = require('aws-sdk');
-const fetch = require('node-fetch');
-const eventToRequest = require('./lib/eventToRequest');
-const readSchoolConfig = require('./lib/readSchoolConfig');
-const launchDashboard = require('./lib/launchDashboard');
-const launchCourseManager = require('./lib/launchCourseManager');
-const findIliosUser = require('./lib/findIliosUser');
-const createJWT = require('./lib/createJWT');
-const ltiRequestValidator = require('./lib/ltiRequestValidator');
-
-module.exports.dashboard = async(event, context, callback) => {
+const dashboard = async(event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
     const response = await launchDashboard({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
@@ -28,7 +26,7 @@ module.exports.dashboard = async(event, context, callback) => {
   }
 };
 
-module.exports.courseManager = async(event, context, callback) => {
+const courseManager = async(event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
     const response = await launchCourseManager({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
@@ -46,7 +44,7 @@ module.exports.courseManager = async(event, context, callback) => {
   }
 };
 
-module.exports.payload = (event, context, callback) => {
+const payload = (event, context, callback) => {
   console.log('Starting generation of payload analysis');
   const request = eventToRequest(event);
   console.log('Request Data:', request);
@@ -70,3 +68,5 @@ module.exports.payload = (event, context, callback) => {
   callback(null, response);
   console.log('Done generating payload analysis');
 };
+
+export { dashboard, courseManager, payload};

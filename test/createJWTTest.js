@@ -1,9 +1,8 @@
-'use strict';
+import createJWT from '../lib/createJWT.js';
+import jwt from 'jsonwebtoken';
 
-const createJWT = require('../lib/createJWT');
-const jwt = require('jsonwebtoken');
-const assert = require('assert');
-const moment = require('moment');
+import assert from 'assert';
+import moment from 'moment';
 
 describe('Generates a JWT from provided data', function () {
   const userId = 24;
