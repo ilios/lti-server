@@ -1,7 +1,5 @@
-'use strict';
-
-const launchDashboard = require('../lib/launchDashboard');
-const assert = require('assert');
+import launchDashboard from '../lib/launchDashboard.js';
+import assert from 'assert';
 describe('Dashboard Response handler works', async function() {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;

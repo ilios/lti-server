@@ -1,11 +1,9 @@
-'use strict';
+import findIliosUser from '../lib/findIliosUser.js';
+import createJWT from '../lib/createJWT.js';
+import meow from 'meow';
 
-const findIliosUser = require('../lib/findIliosUser');
-const createJWT = require('../lib/createJWT');
-const fetch = require('node-fetch');
-const aws = require('aws-sdk');
-
-const meow = require('meow');
+import fetch from 'node-fetch';
+import aws from 'aws-sdk';
 
 const cli = meow(`
   Usage
@@ -13,7 +11,9 @@ const cli = meow(`
 
   Examples
     $ lookup 61 'https://demo-api.com' 'api/v3' 'secret' test@example.edu
-`);
+`, {
+  importMeta: import.meta,
+});
 const lookup = ([ltiUserId, apiServer, apiNameSpace, iliosSecret, searchString]) => {
   if (
     undefined == ltiUserId ||

@@ -1,7 +1,5 @@
-'use strict';
-
-const eventToRequest = require('../lib/eventToRequest');
-const assert = require('assert');
+import eventToRequest from '../lib/eventToRequest.js';
+import assert from 'assert';
 //https://nodejs.org/api/http.html#http_http_request_options_callback
 describe('Parses a lambda event into a node request', function() {
   const protocol = 'https';

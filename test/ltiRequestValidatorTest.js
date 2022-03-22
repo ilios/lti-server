@@ -1,10 +1,7 @@
-'use strict';
-
-const ltiRequestValidator = require('../lib/ltiRequestValidator');
-const encodeRFC5987ValueChars = require('../lib/encodeRFC5987ValueChars');
-const assert = require('assert');
-const { createHmac } = require('crypto');
-
+import ltiRequestValidator from '../lib/ltiRequestValidator.js';
+import encodeRFC5987ValueChars from '../lib/encodeRFC5987ValueChars.js';
+import assert from 'assert';
+import { createHmac } from 'crypto';
 const hmac = (secret, message) => createHmac('sha1', secret).update(message).digest('base64');
 
 const createRequest = (body) => {

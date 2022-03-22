@@ -1,5 +1,9 @@
 {
   extends: ["eslint:recommended", "plugin:node/recommended"],
+  parserOptions: {
+    'ecmaVersion': 2020,
+    sourceType: 'module',
+  },
   rules: {
     comma-dangle: [2, only-multiline],
     comma-spacing: 2,

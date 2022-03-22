@@ -1,11 +1,9 @@
-'use strict';
-
-const readSchoolConfig = require('../lib/readSchoolConfig');
-const fs = require('fs');
-const assert = require('assert');
+import readSchoolConfig from '../lib/readSchoolConfig.js';
+import fs from 'fs';
+import assert from 'assert';
 
 describe('Read the configuration for a school', function () {
-  const json = fs.readFileSync(`${__dirname}/sample-config.json`);
+  const json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
   const S3 = function () {
     this.getObject = () => {
       return {
