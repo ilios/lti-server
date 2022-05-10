@@ -18,7 +18,7 @@
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^10.0.0",
     "moment": "^2.29.3",
-    "serverless": "^3.15.0",
+    "serverless": "^3.17.0",
     "serverless-plugin-additional-stacks": "^1.4.0"
   },
   "engines": {
