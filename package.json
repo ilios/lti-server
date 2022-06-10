@@ -28,6 +28,6 @@
     "aws-sdk": "^2.1151.0",
     "jsonwebtoken": "^8.5.1",
     "meow": "^10.1.2",
-    "node-fetch": "^3.2.4"
+    "node-fetch": "^3.2.6"
   }
 }
