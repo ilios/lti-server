@@ -13,7 +13,7 @@
   "author": "The Ilios Team",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.27.0",
+    "eslint": "^8.32.0",
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^10.2.0",
