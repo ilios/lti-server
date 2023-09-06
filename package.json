@@ -22,8 +22,8 @@
     "serverless-plugin-additional-stacks": "^1.4.0"
   },
   "engines": {
-    "node": "16.*",
-    "npm": ">=7"
+    "node": "18.*",
+    "npm": ">=9"
   },
   "dependencies": {
     "aws-sdk": "^2.1451.0",
