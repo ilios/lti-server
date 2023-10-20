@@ -1,5 +1,6 @@
 import findIliosUser from '../lib/findIliosUser.js';
 import createJWT from '../lib/createJWT.js';
+// eslint-disable-next-line node/no-missing-import
 import meow from 'meow';
 
 import fetch from 'node-fetch';
