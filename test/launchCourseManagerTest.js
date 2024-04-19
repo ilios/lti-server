@@ -1,6 +1,6 @@
 import launchCourseManager from '../lib/launchCourseManager.js';
 import assert from 'assert';
-describe('Course Response handler works', async function() {
+describe('Course Response handler works', function() {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
     const eventToRequest = () => {

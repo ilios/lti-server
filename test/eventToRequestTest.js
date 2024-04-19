@@ -19,6 +19,7 @@ describe('Parses a lambda event into a node request', function() {
     body
   };
   const request = eventToRequest(testEvent);
+
   it('returns a correctly structured response', function() {
     assert.ok('method' in request);
     assert.ok('url' in request);

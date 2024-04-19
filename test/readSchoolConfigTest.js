@@ -16,6 +16,7 @@ describe('Read the configuration for a school', function () {
     };
   };
   const aws = { S3 };
+
   it('reads the first school correctly', async function () {
     const result = await readSchoolConfig('demo-school-config', aws);
     assert.ok('apiServer' in result, 'result contains apiServer');
@@ -33,6 +34,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
   });
+
   it('reads the second school correctly', async function () {
     const result = await readSchoolConfig('second-school-config', aws);
     assert.ok('apiServer' in result, 'result contains apiServer');
@@ -50,6 +52,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
   });
+
   it('dies well when a bad config is requested', async function () {
     try {
       await readSchoolConfig('bad-school-config', aws);

@@ -58,6 +58,7 @@ describe('Get the ID for a user', function () {
     const result = await findIliosUser({ fetch, createJWT, config, searchString, aws });
     assert.strictEqual(result, 24);
   });
+
   it('Users the id in the cache when it exists', async function () {
     const SimpleDB = function () {
       this.getAttributes = ({ DomainName, ItemName }) => {
@@ -82,6 +83,7 @@ describe('Get the ID for a user', function () {
     const result = await findIliosUser({ fetch, createJWT, config, searchString, aws });
     assert.strictEqual(result, 11);
   });
+
   it('dies well when a bad search is performed', async function () {
     const SimpleDB = function () {
       this.getAttributes = ({ DomainName, ItemName }) => {
