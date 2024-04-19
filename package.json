@@ -25,6 +25,7 @@
     "npm": ">=9"
   },
   "dependencies": {
+    "@stylistic/eslint-plugin": "^1.7.2",
     "aws-sdk": "^2.1657.0",
     "eslint-plugin-n": "^17.2.1",
     "jsonwebtoken": "^9.0.2",
