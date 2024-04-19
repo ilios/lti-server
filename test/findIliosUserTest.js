@@ -13,11 +13,15 @@ describe('Get the ID for a user', function () {
     iliosMatchField: 'authentication-username'
   };
   const searchString = 'test-username';
-
   const createJWT = (id) => `TOKEN${id}`;
-  const key = `${config.apiServer}:${config.apiNameSpace}:${config.ltiPostField}:${config.iliosMatchField}:userId:${searchString}`;
-  const keyHash = sha256(key);
-  process.env.USERID_SIMPLEDB_DOMAIN = 'test-domain';
+  let key;
+  let keyHash;
+
+  beforeEach(function () {
+    key = `${config.apiServer}:${config.apiNameSpace}:${config.ltiPostField}:${config.iliosMatchField}:userId:${searchString}`;
+    keyHash = sha256(key);
+    process.env.USERID_SIMPLEDB_DOMAIN = 'test-domain';
+  });
 
   it('calls the api and returns a userId when there is no data in the cache', async function () {
     const SimpleDB = function () {

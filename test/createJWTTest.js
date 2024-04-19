@@ -1,3 +1,4 @@
+
 import createJWT from '../lib/createJWT.js';
 import jwt from 'jsonwebtoken';
 
@@ -9,10 +10,14 @@ describe('Generates a JWT from provided data', function () {
   const apiHost = 'https://example.com';
   const apiNameSpace = '/api/v3';
   const secret = 'secret';
-  const token = createJWT(userId, apiHost, apiNameSpace, secret);
+  let token;
+  let obj;
 
-  assert.ok(token.length > 200);
-  const obj = jwt.decode(token);
+  beforeEach(function () {
+    token = createJWT(userId, apiHost, apiNameSpace, secret);
+    assert.ok(token.length > 200);
+    obj = jwt.decode(token);
+  });
 
   it('has the right passed values', function () {
     assert.strictEqual(obj.iss, 'ilios-lti-server');

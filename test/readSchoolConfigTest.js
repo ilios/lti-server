@@ -3,19 +3,25 @@ import fs from 'fs';
 import assert from 'assert';
 
 describe('Read the configuration for a school', function () {
-  const json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
-  const S3 = function () {
-    this.getObject = () => {
-      return {
-        async promise() {
-          return {
-            Body: json
-          };
-        }
+  let json;
+  let S3;
+  let aws;
+
+  beforeEach(function () {
+    json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
+    S3 = function () {
+      this.getObject = () => {
+        return {
+          async promise() {
+            return {
+              Body: json
+            };
+          }
+        };
       };
     };
-  };
-  const aws = { S3 };
+    aws = { S3 };
+  });
 
   it('reads the first school correctly', async function () {
     const result = await readSchoolConfig('demo-school-config', aws);
