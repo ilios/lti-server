@@ -13,11 +13,15 @@ describe('Get the ID for a user', function () {
     iliosMatchField: 'authentication-username'
   };
   const searchString = 'test-username';
-
   const createJWT = (id) => `TOKEN${id}`;
-  const key = `${config.apiServer}:${config.apiNameSpace}:${config.ltiPostField}:${config.iliosMatchField}:userId:${searchString}`;
-  const keyHash = sha256(key);
-  process.env.USERID_SIMPLEDB_DOMAIN = 'test-domain';
+  let key;
+  let keyHash;
+
+  beforeEach(function () {
+    key = `${config.apiServer}:${config.apiNameSpace}:${config.ltiPostField}:${config.iliosMatchField}:userId:${searchString}`;
+    keyHash = sha256(key);
+    process.env.USERID_SIMPLEDB_DOMAIN = 'test-domain';
+  });
 
   it('calls the api and returns a userId when there is no data in the cache', async function () {
     const SimpleDB = function () {
@@ -58,6 +62,7 @@ describe('Get the ID for a user', function () {
     const result = await findIliosUser({ fetch, createJWT, config, searchString, aws });
     assert.strictEqual(result, 24);
   });
+
   it('Users the id in the cache when it exists', async function () {
     const SimpleDB = function () {
       this.getAttributes = ({ DomainName, ItemName }) => {
@@ -82,6 +87,7 @@ describe('Get the ID for a user', function () {
     const result = await findIliosUser({ fetch, createJWT, config, searchString, aws });
     assert.strictEqual(result, 11);
   });
+
   it('dies well when a bad search is performed', async function () {
     const SimpleDB = function () {
       this.getAttributes = ({ DomainName, ItemName }) => {

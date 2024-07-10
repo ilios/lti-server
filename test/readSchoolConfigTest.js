@@ -3,19 +3,26 @@ import fs from 'fs';
 import assert from 'assert';
 
 describe('Read the configuration for a school', function () {
-  const json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
-  const S3 = function () {
-    this.getObject = () => {
-      return {
-        async promise() {
-          return {
-            Body: json
-          };
-        }
+  let json;
+  let S3;
+  let aws;
+
+  beforeEach(function () {
+    json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
+    S3 = function () {
+      this.getObject = () => {
+        return {
+          async promise() {
+            return {
+              Body: json
+            };
+          }
+        };
       };
     };
-  };
-  const aws = { S3 };
+    aws = { S3 };
+  });
+
   it('reads the first school correctly', async function () {
     const result = await readSchoolConfig('demo-school-config', aws);
     assert.ok('apiServer' in result, 'result contains apiServer');
@@ -33,6 +40,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
   });
+
   it('reads the second school correctly', async function () {
     const result = await readSchoolConfig('second-school-config', aws);
     assert.ok('apiServer' in result, 'result contains apiServer');
@@ -50,6 +58,7 @@ describe('Read the configuration for a school', function () {
     assert.ok('iliosMatchField' in result, 'result contains iliosMatchField');
     assert.strictEqual(result.iliosMatchField, 'authentication-username', 'iliosMatchField is correct');
   });
+
   it('dies well when a bad config is requested', async function () {
     try {
       await readSchoolConfig('bad-school-config', aws);

@@ -1,7 +1,7 @@
 import eventToRequest from '../lib/eventToRequest.js';
 import assert from 'assert';
 //https://nodejs.org/api/http.html#http_http_request_options_callback
-describe('Parses a lambda event into a node request', function() {
+describe('Parses a lambda event into a node request', function () {
   const protocol = 'https';
   const host = 'localhost';
   const path = '/dev/lti';
@@ -18,8 +18,13 @@ describe('Parses a lambda event into a node request', function() {
     },
     body
   };
-  const request = eventToRequest(testEvent);
-  it('returns a correctly structured response', function() {
+  let request;
+
+  beforeEach(function () {
+    request = eventToRequest(testEvent);
+  });
+
+  it('returns a correctly structured response', function () {
     assert.ok('method' in request);
     assert.ok('url' in request);
     assert.ok('protocol' in request);
