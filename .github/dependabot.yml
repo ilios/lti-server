@@ -8,7 +8,3 @@ updates:
     timezone: America/Los_Angeles
   open-pull-requests-limit: 10
   versioning-strategy: increase
-  ignore:
-  - dependency-name: aws-sdk
-    versions:
-    - 2.889.0
