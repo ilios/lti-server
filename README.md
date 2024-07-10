@@ -5,14 +5,14 @@
 ## Install
 
 ```
-$ npm install
-$ npm install -g serverless
+$ pnpm install
+$ pnpm install -g serverless
 ```
 
 ## Running tests
 
 ```
-$ npm test
+$ pnpm test
 ```
 
 ## Deploy
