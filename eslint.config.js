@@ -3,9 +3,11 @@ import js from '@eslint/js';
 import stylisticJs from '@stylistic/eslint-plugin-js';
 import nodePlugin from 'eslint-plugin-n';
 import mochaPlugin from 'eslint-plugin-mocha';
+import eslintPluginYml from 'eslint-plugin-yml';
 
 export default [
   js.configs.recommended,
+  ...eslintPluginYml.configs['flat/recommended'],
   mochaPlugin.configs.flat.recommended,
   {
     languageOptions: {

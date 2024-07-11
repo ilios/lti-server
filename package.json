@@ -18,6 +18,7 @@
     "eslint": "^9.0.0",
     "eslint-plugin-mocha": "^10.4.3",
     "eslint-plugin-n": "^17.2.1",
+    "eslint-plugin-yml": "^1.14.0",
     "globals": "^15.8.0",
     "mocha": "^10.6.0",
     "moment": "^2.30.1"
