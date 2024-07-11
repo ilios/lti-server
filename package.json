@@ -20,9 +20,7 @@
     "eslint-plugin-n": "^17.2.1",
     "globals": "^15.8.0",
     "mocha": "^10.6.0",
-    "moment": "^2.30.1",
-    "serverless": "^3.39.0",
-    "serverless-plugin-additional-stacks": "^1.4.0"
+    "moment": "^2.30.1"
   },
   "engines": {
     "node": ">= 20",
@@ -33,6 +31,8 @@
     "aws-sdk": "^2.1657.0",
     "jsonwebtoken": "^9.0.2",
     "meow": "^11.0.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "serverless": "^3.39.0",
+    "serverless-plugin-additional-stacks": "^1.4.0"
   }
 }

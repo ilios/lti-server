@@ -20,6 +20,12 @@ importers:
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
+      serverless:
+        specifier: ^3.39.0
+        version: 3.39.0
+      serverless-plugin-additional-stacks:
+        specifier: ^1.4.0
+        version: 1.6.0
     devDependencies:
       '@stylistic/eslint-plugin-js':
         specifier: ^1.7.2
@@ -42,12 +48,6 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
-      serverless:
-        specifier: ^3.39.0
-        version: 3.39.0
-      serverless-plugin-additional-stacks:
-        specifier: ^1.4.0
-        version: 1.6.0
 
 packages:
 
