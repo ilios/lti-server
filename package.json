@@ -30,7 +30,7 @@
     "npm": "use pnpm"
   },
   "dependencies": {
-    "aws-sdk": "^2.1657.0",
+    "aws-sdk": "^2.1658.0",
     "jsonwebtoken": "^9.0.2",
     "meow": "^11.0.0",
     "node-fetch": "^3.3.2"
