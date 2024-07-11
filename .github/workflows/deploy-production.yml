@@ -35,7 +35,7 @@ jobs:
       with:
         node-version: 20
     - name: install dependencies
-      run: pnpm install
+      run: pnpm install --prod
     - name: Serverless Deploy
       run: pnpm run deploy:production
       env:
