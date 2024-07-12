@@ -8,7 +8,7 @@
     "preinstall": "npx only-allow pnpm",
     "lint": "eslint . --cache",
     "lint:fix": "eslint . --fix",
-    "test": "mocha && eslint . ",
+    "test": "mocha",
     "deploy:production": "serverless deploy --stage=prod --verbose",
     "deploy:dev": "serverless deploy --stage=dev  --verbose"
   },
