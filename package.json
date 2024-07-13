@@ -33,7 +33,7 @@
   "dependencies": {
     "aws-sdk": "^2.1659.0",
     "jsonwebtoken": "^9.0.2",
-    "meow": "^11.0.0",
+    "meow": "^13.2.0",
     "node-fetch": "^3.3.2",
     "serverless": "^3.39.0",
     "serverless-plugin-additional-stacks": "^1.4.0"
