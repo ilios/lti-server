@@ -78,8 +78,3 @@ resources:
       Type: "AWS::SDB::Domain"
       Properties:
         Description: LaunchLTI SimpleDB for caching userId values
-
-package:
-  patterns:
-    - "!node_modules/aws-sdk/**"
-    - "!node_modules/**/aws-sdk/**"
