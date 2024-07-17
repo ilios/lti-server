@@ -3,7 +3,6 @@ import createJWT from '../lib/createJWT.js';
 import meow from 'meow';
 
 import fetch from 'node-fetch';
-import aws from 'aws-sdk';
 
 const cli = meow(`
   Usage
@@ -30,8 +29,7 @@ const lookup = ([ltiUserId, apiServer, apiNameSpace, iliosSecret, searchString])
     fetch,
     createJWT,
     config,
-    searchString,
-    aws
+    searchString
   }).then(userId => {
     process.stdout.write(`User ID: ${userId}\n`);
   });
