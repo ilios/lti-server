@@ -4,27 +4,25 @@ import assert from 'assert';
 
 describe('Read the configuration for a school', function () {
   let json;
-  let S3;
-  let aws;
+  let send;
+  let s3Client;
 
   beforeEach(function () {
     json = fs.readFileSync(new URL('sample-config.json', import.meta.url));
-    S3 = function () {
-      this.getObject = () => {
-        return {
-          async promise() {
-            return {
-              Body: json
-            };
+    send = async function () {
+      return {
+        Body: {
+          async transformToString() {
+            return json;
           }
-        };
+        }
       };
     };
-    aws = { S3 };
+    s3Client = { send };
   });
 
   it('reads the first school correctly', async function () {
-    const result = await readSchoolConfig('demo-school-config', aws);
+    const result = await readSchoolConfig('demo-school-config', s3Client);
     assert.ok('apiServer' in result, 'result contains apiServer');
     assert.strictEqual(result.apiServer, 'https://test-ilios.com', 'apiServer is correct');
     assert.ok('apiNameSpace' in result, 'result contains apiNameSpace');
@@ -42,7 +40,7 @@ describe('Read the configuration for a school', function () {
   });
 
   it('reads the second school correctly', async function () {
-    const result = await readSchoolConfig('second-school-config', aws);
+    const result = await readSchoolConfig('second-school-config', s3Client);
     assert.ok('apiServer' in result, 'result contains apiServer');
     assert.strictEqual(result.apiServer, 'https://second-test-ilios.com', 'apiServer is correct');
     assert.ok('apiNameSpace' in result, 'result contains apiNameSpace');
@@ -61,7 +59,7 @@ describe('Read the configuration for a school', function () {
 
   it('dies well when a bad config is requested', async function () {
     try {
-      await readSchoolConfig('bad-school-config', aws);
+      await readSchoolConfig('bad-school-config', s3Client);
     } catch (e) {
       assert.strictEqual(e.message, 'The Consumer Key "bad-school-config" is not known to Ilios. Please contact support@iliosproject.org to set it up.');
     }

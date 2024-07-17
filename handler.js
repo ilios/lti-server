@@ -1,4 +1,4 @@
-import aws from 'aws-sdk';
+import { S3Client } from '@aws-sdk/client-s3';
 import fetch from 'node-fetch';
 import eventToRequest from './lib/eventToRequest.js';
 import readSchoolConfig from './lib/readSchoolConfig.js';
@@ -8,10 +8,15 @@ import findIliosUser from './lib/findIliosUser.js';
 import createJWT from './lib/createJWT.js';
 import ltiRequestValidator from './lib/ltiRequestValidator.js';
 
+
+//create the client outside of the handler:
+//https://github.com/aws/aws-sdk-js-v3?tab=readme-ov-file#best-practices
+const s3Client = new S3Client({});
+
 const dashboard = async(event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
-    const response = await launchDashboard({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
+    const response = await launchDashboard({ event, ltiRequestValidator, s3Client, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
     callback(null, response);
   } catch (error) {
     console.error(error);
@@ -29,7 +34,7 @@ const dashboard = async(event, context, callback) => {
 const courseManager = async(event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
-    const response = await launchCourseManager({ event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
+    const response = await launchCourseManager({ event, ltiRequestValidator, s3Client, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
     callback(null, response);
   } catch (error) {
     console.error(error);
