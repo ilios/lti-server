@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@aws-sdk/client-s3':
-        specifier: ^3.614.0
-        version: 3.614.0
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -20,13 +17,10 @@ importers:
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
-      serverless:
-        specifier: ^4.1.12
-        version: 4.1.12
-      serverless-plugin-additional-stacks:
-        specifier: ^1.4.0
-        version: 1.6.0
     devDependencies:
+      '@aws-sdk/client-s3':
+        specifier: ^3.614.0
+        version: 3.614.0
       '@stylistic/eslint-plugin-js':
         specifier: ^2.3.0
         version: 2.3.0(eslint@9.7.0)
@@ -51,6 +45,12 @@ importers:
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      serverless:
+        specifier: ^4.1.12
+        version: 4.1.12
+      serverless-plugin-additional-stacks:
+        specifier: ^1.6.0
+        version: 1.6.0
 
 packages:
 

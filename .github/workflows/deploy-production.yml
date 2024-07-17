@@ -39,7 +39,7 @@ jobs:
       with:
         node-version: 20
     - name: install dependencies
-      run: pnpm install --prod
+      run: pnpm install
     - name: Serverless Deploy
       run: pnpm run deploy:production
     - uses: act10ns/slack@v2

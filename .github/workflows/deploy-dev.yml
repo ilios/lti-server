@@ -39,7 +39,7 @@ jobs:
       with:
         node-version: 20
     - name: install dependencies
-      run: pnpm install --prod
+      run: pnpm install
     - run: pnpm exec serverless package --stage dev
     - uses: actions/upload-artifact@v4
       with:
