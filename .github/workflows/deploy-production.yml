@@ -38,8 +38,8 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - name: install dependencies
-      run: pnpm install
+    - name: install dependencies hoisted for lambda
+      run: pnpm install --node-linker=hoisted
     - name: Serverless Deploy
       run: pnpm run deploy:production
     - uses: act10ns/slack@v2
