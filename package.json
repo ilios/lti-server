@@ -23,7 +23,7 @@
     "eslint-plugin-n": "^17.2.1",
     "eslint-plugin-yml": "^1.14.0",
     "globals": "^15.8.0",
-    "mocha": "^10.6.0",
+    "mocha": "^10.7.0",
     "moment": "^2.30.1",
     "serverless": "^4.1.12",
     "serverless-plugin-additional-stacks": "^1.6.0"
