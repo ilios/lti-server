@@ -8,7 +8,7 @@ import eslintPluginYml from 'eslint-plugin-yml';
 export default [
   js.configs.recommended,
   ...eslintPluginYml.configs['flat/recommended'],
-  mochaPlugin.configs.flat.recommended,
+  mochaPlugin.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2020,
