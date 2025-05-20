@@ -1,5 +1,6 @@
 import launchDashboard from '../lib/launchDashboard.js';
 import assert from 'assert';
+
 describe('Dashboard Response handler works', function() {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
