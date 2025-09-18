@@ -3,7 +3,7 @@ name: Deploy Production Build
 on:
   push:
     tags:
-      - '*'
+      - "*"
 
 concurrency: deploy-production
 
@@ -12,15 +12,15 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    - uses: pnpm/action-setup@v4
-      with:
-        version: 9
-    - uses: actions/setup-node@v5
-      with:
-        node-version: 20
-    - run: pnpm install
-    - run: pnpm run test
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: pnpm install
+      - run: pnpm run test
 
   deploy:
     name: Deploy Lambda Function
@@ -31,21 +31,21 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
     steps:
-    - uses: actions/checkout@v5
-    - uses: pnpm/action-setup@v4
-      with:
-        version: 9
-    - uses: actions/setup-node@v5
-      with:
-        node-version: 20
-    - name: install dependencies hoisted for lambda
-      run: pnpm install --node-linker=hoisted
-    - name: Serverless Deploy
-      run: pnpm run deploy:production
-    - uses: act10ns/slack@v2
-      if: failure()
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ILIOS_DEPLOYMENT_WEBHOOK_URL }}
-      with:
-        status: ${{ job.status }}
-        message: LTI Server Production deploy failed {{ env.GITHUB_SERVER_URL }}/{{ env.GITHUB_REPOSITORY }}/actions/runs/{{ env.GITHUB_RUN_ID }}
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: install dependencies hoisted for lambda
+        run: pnpm install --node-linker=hoisted
+      - name: Serverless Deploy
+        run: pnpm run deploy:production
+      - uses: act10ns/slack@v2
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ILIOS_DEPLOYMENT_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
+          message: LTI Server Production deploy failed {{ env.GITHUB_SERVER_URL }}/{{ env.GITHUB_REPOSITORY }}/actions/runs/{{ env.GITHUB_RUN_ID }}
