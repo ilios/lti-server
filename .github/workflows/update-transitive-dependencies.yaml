@@ -15,7 +15,7 @@ jobs:
           version: 9
       - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 22
       - name: remove and re-create lock file
         run: |
           rm pnpm-lock.yaml
