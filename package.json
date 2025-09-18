@@ -29,7 +29,7 @@
     "serverless-plugin-additional-stacks": "^1.6.0"
   },
   "engines": {
-    "node": ">= 20",
+    "node": ">= 22",
     "yarn": "use pnpm",
     "npm": "use pnpm"
   },
