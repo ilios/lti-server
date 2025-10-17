@@ -17,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.614.0",
+    "@eslint/js": "^9.37.0",
     "@stylistic/eslint-plugin-js": "^4.2.0",
     "eslint": "^9.7.0",
     "eslint-plugin-mocha": "^11.0.0",
@@ -37,5 +38,6 @@
     "jsonwebtoken": "^9.0.2",
     "meow": "^13.2.0",
     "node-fetch": "^3.3.2"
-  }
+  },
+  "packageManager": "pnpm@10.17.1"
 }
