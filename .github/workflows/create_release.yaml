@@ -3,37 +3,27 @@ name: Release Notes
 on:
   push:
     tags:
-    - '*'
+      - "*"
 
 jobs:
   notes:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-      with:
-        fetch-depth: 0
-    - name: Get Previous Tag
-      id: previousTag
-      run: |
-        PREVIOUS_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
-        echo ${PREVIOUS_TAG}
-        echo ::set-output name=tag::${PREVIOUS_TAG}
-    - name: Get New Tag
-      id: nextTag
-      run: |
-        NEW_TAG=${GITHUB_REF#refs/tags/}
-        echo ${NEW_TAG}
-        echo ::set-output name=tag::${NEW_TAG}
-    - uses: actions/setup-node@v5
-    - name: Generate Release Notes
-      id: notes
-      run: |
-        NOTES=$(npx generate-github-release-notes ilios lti-server ${{ steps.previousTag.outputs.tag }} ${{steps.nextTag.outputs.tag}})
-        echo ${NOTES}
-        # remove line breaks from notes so they can be passed around
-        NOTES="${NOTES//$'\n'/'%0A'}"
-        echo "::set-output name=releaseNotes::$NOTES"
-    - uses: ncipollo/release-action@v1
-      with:
-        body: ${{steps.notes.outputs.releaseNotes}}
-        token: ${{ secrets.ZORGBORT_TOKEN }}
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.ZORGBORT_TOKEN }}
+          generateReleaseNotes: true
+      - uses: act10ns/slack@v2
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_ILIOS_DEPLOYMENT_WEBHOOK_URL }}
+        with:
+          status: ${{ job.status }}
+          message: Create Release Failed {{ env.GITHUB_SERVER_URL }}/{{ env.GITHUB_REPOSITORY }}/actions/runs/{{ env.GITHUB_RUN_ID }}
