@@ -3,7 +3,10 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "lti-server"
+stack_name = "lti-server-stage"
+
+[prod.global.parameters]
+stack_name = "lti-server-prod"
 
 [default.build.parameters]
 cached = true
