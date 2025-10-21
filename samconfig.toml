@@ -4,6 +4,7 @@ version = 0.1
 
 [default.global.parameters]
 stack_name = "lti-server-stage"
+region = "us-west-2"
 
 [prod.global.parameters]
 stack_name = "lti-server-prod"
