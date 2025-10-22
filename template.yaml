@@ -9,8 +9,56 @@ Description: >
 Globals:
   Function:
     Timeout: 5
+  Api:
+    OpenApiVersion: 3.0.1 #meaningless workaround, see https://github.com/aws/serverless-application-model/issues/3447#issuecomment-1828702747
+
+Parameters:
+  StageName:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+    Description: The stage for this stack
+  LtiDashboardURL:
+    Type: String
+    Description: The URL to redirect the user to with their authentication token
 
 Resources:
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref StageName
+  DashboardFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.dashboardHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          CONFIG_BUCKET: !Ref ConfigBucket
+          DASHBOARD_APP_URL: !Ref LtiDashboardURL
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ConfigBucket
+      Events:
+        Payload:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /dashboard
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: "es2020"
+        Sourcemap: true
+        EntryPoints:
+          - app.ts
   PayloadFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -23,6 +71,7 @@ Resources:
         Payload:
           Type: Api
           Properties:
+            RestApiId: !Ref ApiGateway
             Path: /payload
             Method: post
     Metadata:
@@ -33,14 +82,27 @@ Resources:
         Sourcemap: true
         EntryPoints:
           - app.ts
+  ConfigBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-launch-configuration'
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  DashboardApi:
+    Description: "API Gateway endpoint URL for Prod stage for Dashboard function"
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/dashboard/"
+  DashboardFunction:
+    Description: "Dashboard Lambda Function ARN"
+    Value: !GetAtt DashboardFunction.Arn
+  DashboardFunctionIamRole:
+    Description: "Implicit IAM Role created for Dashboard function"
+    Value: !GetAtt PayloadFunctionRole.Arn
   PayloadApi:
     Description: "API Gateway endpoint URL for Prod stage for Payload function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/payload/"
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/payload/"
   PayloadFunction:
     Description: "Payload Lambda Function ARN"
     Value: !GetAtt PayloadFunction.Arn

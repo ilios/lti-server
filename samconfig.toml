@@ -3,11 +3,13 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "lti-server-stage"
+stack_name = "lti-server-dev"
 region = "us-west-2"
+parameter_overrides = "StageName=dev LtiDashboardURL=https://dev-lti-dashboard.iliosproject.org"
 
 [prod.global.parameters]
 stack_name = "lti-server-prod"
+parameter_overrides = "StageName=prod LtiDashboardURL=https://lti-dashboard.iliosproject.org"
 
 [default.build.parameters]
 cached = true
