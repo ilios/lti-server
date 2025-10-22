@@ -1,10 +1,10 @@
 service: ilios-lti-launch
 
 custom:
-  ltiDashboard-dev: "https://dev-lti-dashboard.iliosproject.org"
-  ltiDashboard-prod: "https://lti-dashboard.iliosproject.org"
-  ltiCourseManager-dev: "https://dev-lti-course-manager.iliosproject.org"
-  ltiCourseManager-prod: "https://lti-course-manager.iliosproject.org"
+  ltiDashboard-dev: 'https://dev-lti-dashboard.iliosproject.org'
+  ltiDashboard-prod: 'https://lti-dashboard.iliosproject.org'
+  ltiCourseManager-dev: 'https://dev-lti-course-manager.iliosproject.org'
+  ltiCourseManager-prod: 'https://lti-course-manager.iliosproject.org'
   additionalStacks:
     permanent:
       Resources:
@@ -30,21 +30,21 @@ provider:
     Tag1: lti
     Tag2: lti-launch
   iamRoleStatements:
-    - Effect: "Allow"
+    - Effect: 'Allow'
       Action:
-        - "s3:*"
-      Resource: "arn:aws:s3:::${self:provider.environment.CONFIG_BUCKET}/*"
-    - Effect: "Allow"
+        - 's3:*'
+      Resource: 'arn:aws:s3:::${self:provider.environment.CONFIG_BUCKET}/*'
+    - Effect: 'Allow'
       Action:
-        - "sdb:*"
-      Resource: "arn:aws:sdb:${self:provider.region}:*:domain/${self:service}-${opt:stage, self:provider.stage}-LTILaunchUserSimpleDB-*"
+        - 'sdb:*'
+      Resource: 'arn:aws:sdb:${self:provider.region}:*:domain/${self:service}-${opt:stage, self:provider.stage}-LTILaunchUserSimpleDB-*'
 
   environment:
     DASHBOARD_APP_URL: ${self:custom.ltiDashboard-${opt:stage, self:provider.stage}}
     COURSE_MANAGER_APP_URL: ${self:custom.ltiCourseManager-${opt:stage, self:provider.stage}}
     USERID_SIMPLEDB_DOMAIN:
       Ref: LTILaunchUserSimpleDB
-    CONFIG_BUCKET: "ilios-lti-launch-configuration-${opt:stage, self:provider.stage}"
+    CONFIG_BUCKET: 'ilios-lti-launch-configuration-${opt:stage, self:provider.stage}'
 
 functions:
   dashboard:
@@ -75,6 +75,6 @@ functions:
 resources:
   Resources:
     LTILaunchUserSimpleDB:
-      Type: "AWS::SDB::Domain"
+      Type: 'AWS::SDB::Domain'
       Properties:
         Description: LaunchLTI SimpleDB for caching userId values

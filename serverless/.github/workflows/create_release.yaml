@@ -3,7 +3,7 @@ name: Release Notes
 on:
   push:
     tags:
-      - "*"
+      - '*'
 
 jobs:
   notes:

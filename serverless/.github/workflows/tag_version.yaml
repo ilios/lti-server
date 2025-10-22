@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       releaseType:
-        description: "Semver Release Type (major,minor,patch)"
+        description: 'Semver Release Type (major,minor,patch)'
         required: true
 
 jobs:

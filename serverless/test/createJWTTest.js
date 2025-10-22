@@ -1,4 +1,3 @@
-
 import createJWT from '../lib/createJWT.js';
 import jwt from 'jsonwebtoken';
 
