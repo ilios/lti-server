@@ -22,6 +22,7 @@ $ serverless deploy --stage=dev
 ```
 
 ## CLI
+
 ```
 $ generate-url --help
 

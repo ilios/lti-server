@@ -11,8 +11,8 @@ const createRequest = (body) => {
     body,
     method: 'POST',
     headers: {
-      host: null
-    }
+      host: null,
+    },
   };
 };
 
@@ -31,18 +31,19 @@ describe('Validate LTI Request', function () {
   let hash;
 
   beforeEach(function () {
-    encodedParts = Object.entries(data).map(([key, value]) => {
-      const encodedValue = encodeRFC5987ValueChars(value);
-      return `${key}=${encodedValue}`;
-    }).sort();
+    encodedParts = Object.entries(data)
+      .map(([key, value]) => {
+        const encodedValue = encodeRFC5987ValueChars(value);
+        return `${key}=${encodedValue}`;
+      })
+      .sort();
     encodedString = encodeRFC5987ValueChars(encodedParts.join('&'));
     encodedUrl = encodeRFC5987ValueChars(url);
     hash = hmac(`${secret}&${token}`, `POST&${encodedUrl}&${encodedString}`);
   });
 
-
   it('validate the signature and the data', async function () {
-    const body = Object.assign({ 'oauth_signature': hash }, data);
+    const body = Object.assign({ oauth_signature: hash }, data);
     const request = createRequest(body);
     request.url = url;
 
@@ -51,7 +52,7 @@ describe('Validate LTI Request', function () {
   });
 
   it('returns false when the secret is different', async function () {
-    const body = Object.assign({ 'oauth_signature': hash }, data);
+    const body = Object.assign({ oauth_signature: hash }, data);
     const request = createRequest(body);
 
     const result = ltiRequestValidator('wrong secret', token, request);
@@ -59,7 +60,7 @@ describe('Validate LTI Request', function () {
   });
 
   it('returns false when the token is different', async function () {
-    const body = Object.assign({ 'oauth_signature': hash }, data);
+    const body = Object.assign({ oauth_signature: hash }, data);
     const request = createRequest(body);
 
     const result = ltiRequestValidator(secret, 'wrong token', request);
@@ -67,7 +68,7 @@ describe('Validate LTI Request', function () {
   });
 
   it('returns false when signature is wrong', async function () {
-    const body = Object.assign({ 'oauth_signature': 'bad signature' }, data);
+    const body = Object.assign({ oauth_signature: 'bad signature' }, data);
     const request = createRequest(body);
 
     const result = ltiRequestValidator(secret, token, request);
@@ -75,7 +76,7 @@ describe('Validate LTI Request', function () {
   });
 
   it('returns false when the data does not match the signature', async function () {
-    const body = Object.assign({ 'oauth_signature': hash }, data);
+    const body = Object.assign({ oauth_signature: hash }, data);
     delete body.first;
     const request = createRequest(body);
 
@@ -106,5 +107,3 @@ describe('Validate LTI Request', function () {
     assert.strictEqual(result, true);
   });
 });
-
-

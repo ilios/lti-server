@@ -29,7 +29,7 @@ export default [
       's/indent': ['error', 2],
       's/quotes': ['error', 'single', { avoidEscape: true }],
       's/semi': 'error',
-      'strict': ['error', 'global']
+      strict: ['error', 'global'],
     },
   },
 ];

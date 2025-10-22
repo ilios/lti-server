@@ -22,29 +22,29 @@ const s3Client = new S3Client({});
  *
  */
 export const dashboardHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    console.log('Starting generation of dashboard redirect response');
-    const request = eventToRequest(event);
-    try {
-        const response = await launchDashboard(
-            request,
-            s3Client,
-            ltiRequestValidator,
-            readSchoolConfig,
-            findIliosUser,
-            createJWT,
-        );
+  console.log('Starting generation of dashboard redirect response');
+  const request = eventToRequest(event);
+  try {
+    const response = await launchDashboard(
+      request,
+      s3Client,
+      ltiRequestValidator,
+      readSchoolConfig,
+      findIliosUser,
+      createJWT,
+    );
 
-        return response;
-    } catch (error) {
-        console.error(error);
-        return {
-            statusCode: 500,
-            headers: {
-                'Content-Type': 'text/html',
-            },
-            body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`,
-        };
-    }
+    return response;
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'text/html',
+      },
+      body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`,
+    };
+  }
 };
 
 /**
@@ -57,17 +57,17 @@ export const dashboardHandler = async (event: APIGatewayProxyEvent): Promise<API
  *
  */
 export const payloadHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-    console.log('Starting generation of payload analysis');
-    console.log('Event Data:', event);
-    const { body, httpMethod, headers, requestContext } = event;
-    const { domainName, protocol } = requestContext;
+  console.log('Starting generation of payload analysis');
+  console.log('Event Data:', event);
+  const { body, httpMethod, headers, requestContext } = event;
+  const { domainName, protocol } = requestContext;
 
-    const response = {
-        statusCode: 200,
-        headers: {
-            'Content-Type': 'text/html',
-        },
-        body: `<html>
+  const response = {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'text/html',
+    },
+    body: `<html>
       <body>
         <h2>LTI POST Payload:</h2>
         <p><strong>Protocol:</strong> ${protocol}</p>
@@ -77,8 +77,8 @@ export const payloadHandler = async (event: APIGatewayProxyEvent): Promise<APIGa
         <p><strong>Headers:</strong> ${JSON.stringify(headers)}</p>
       </body>
     </html>`,
-    };
-    console.log('Done generating payload analysis');
+  };
+  console.log('Done generating payload analysis');
 
-    return response;
+  return response;
 };

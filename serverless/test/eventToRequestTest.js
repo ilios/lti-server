@@ -16,7 +16,7 @@ describe('Parses a lambda event into a node request', function () {
     requestContext: {
       path,
     },
-    body
+    body,
   };
   let request;
 

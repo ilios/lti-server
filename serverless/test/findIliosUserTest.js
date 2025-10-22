@@ -8,22 +8,23 @@ describe('Get the ID for a user', function () {
     ltiUserId: 33,
     secret: 'secret123',
     ltiPostField: 'ext_user_username',
-    iliosMatchField: 'authentication-username'
+    iliosMatchField: 'authentication-username',
   };
   const searchString = 'test-username';
   const createJWT = (id) => `TOKEN${id}`;
 
   it('calls the api and returns a userId when there is no data in the cache', async function () {
     const fetch = async (url) => {
-      assert.strictEqual(url, `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${searchString}`);
+      assert.strictEqual(
+        url,
+        `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${searchString}`,
+      );
       return {
         json() {
           return {
-            authentications: [
-              { user: 24, username: searchString }
-            ]
+            authentications: [{ user: 24, username: searchString }],
           };
-        }
+        },
       };
     };
     const result = await findIliosUser({ fetch, createJWT, config, searchString });
@@ -35,9 +36,9 @@ describe('Get the ID for a user', function () {
       return {
         json() {
           return {
-            authentications: []
+            authentications: [],
           };
-        }
+        },
       };
     };
     try {

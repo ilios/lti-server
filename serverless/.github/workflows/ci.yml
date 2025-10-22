@@ -6,7 +6,7 @@ on:
       - master
   pull_request: {}
   schedule:
-    - cron: "52 5 * * 6" # weekly, on Saturday morning
+    - cron: '52 5 * * 6' # weekly, on Saturday morning
 
 jobs:
   test:

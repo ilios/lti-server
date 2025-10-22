@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
   SAM Template for Ilios LTI Server.
@@ -55,12 +55,12 @@ Resources:
       BuildMethod: esbuild
       BuildProperties:
         Minify: true
-        Target: "es2020"
+        Target: 'es2020'
         Sourcemap: true
         EntryPoints:
           - app.ts
         External:
-          - "@aws-sdk/client-s3"
+          - '@aws-sdk/client-s3'
   PayloadFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -80,12 +80,12 @@ Resources:
       BuildMethod: esbuild
       BuildProperties:
         Minify: true
-        Target: "es2020"
+        Target: 'es2020'
         Sourcemap: true
         EntryPoints:
           - app.ts
         External:
-          - "@aws-sdk/client-s3"
+          - '@aws-sdk/client-s3'
   ConfigBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -96,20 +96,20 @@ Outputs:
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   DashboardApi:
-    Description: "API Gateway endpoint URL for Prod stage for Dashboard function"
-    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/dashboard/"
+    Description: 'API Gateway endpoint URL for Prod stage for Dashboard function'
+    Value: !Sub 'https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/dashboard/'
   DashboardFunction:
-    Description: "Dashboard Lambda Function ARN"
+    Description: 'Dashboard Lambda Function ARN'
     Value: !GetAtt DashboardFunction.Arn
   DashboardFunctionIamRole:
-    Description: "Implicit IAM Role created for Dashboard function"
+    Description: 'Implicit IAM Role created for Dashboard function'
     Value: !GetAtt PayloadFunctionRole.Arn
   PayloadApi:
-    Description: "API Gateway endpoint URL for Prod stage for Payload function"
-    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/payload/"
+    Description: 'API Gateway endpoint URL for Prod stage for Payload function'
+    Value: !Sub 'https://${ApiGateway}.execute-api.${AWS::Region}.${AWS::URLSuffix}/${StageName}/payload/'
   PayloadFunction:
-    Description: "Payload Lambda Function ARN"
+    Description: 'Payload Lambda Function ARN'
     Value: !GetAtt PayloadFunction.Arn
   PayloadFunctionIamRole:
-    Description: "Implicit IAM Role created for Payload function"
+    Description: 'Implicit IAM Role created for Payload function'
     Value: !GetAtt PayloadFunctionRole.Arn

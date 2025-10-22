@@ -14,8 +14,8 @@ describe('Read the configuration for a school', function () {
         Body: {
           async transformToString() {
             return json;
-          }
-        }
+          },
+        },
       };
     };
     s3Client = { send };
@@ -61,7 +61,10 @@ describe('Read the configuration for a school', function () {
     try {
       await readSchoolConfig('bad-school-config', s3Client);
     } catch (e) {
-      assert.strictEqual(e.message, 'The Consumer Key "bad-school-config" is not known to Ilios. Please contact support@iliosproject.org to set it up.');
+      assert.strictEqual(
+        e.message,
+        'The Consumer Key "bad-school-config" is not known to Ilios. Please contact support@iliosproject.org to set it up.',
+      );
     }
   });
 });

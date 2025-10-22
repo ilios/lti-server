@@ -8,42 +8,59 @@ import findIliosUser from './lib/findIliosUser.js';
 import createJWT from './lib/createJWT.js';
 import ltiRequestValidator from './lib/ltiRequestValidator.js';
 
-
 //create the client outside of the handler:
 //https://github.com/aws/aws-sdk-js-v3?tab=readme-ov-file#best-practices
 const s3Client = new S3Client({});
 
-const dashboard = async(event, context, callback) => {
+const dashboard = async (event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
-    const response = await launchDashboard({ event, ltiRequestValidator, s3Client, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
+    const response = await launchDashboard({
+      event,
+      ltiRequestValidator,
+      s3Client,
+      eventToRequest,
+      readSchoolConfig,
+      fetch,
+      createJWT,
+      findIliosUser,
+    });
     callback(null, response);
   } catch (error) {
     console.error(error);
     const response = {
       statusCode: 500,
       headers: {
-        'Content-Type': 'text/html'
+        'Content-Type': 'text/html',
       },
-      body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`
+      body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`,
     };
     callback(null, response);
   }
 };
 
-const courseManager = async(event, context, callback) => {
+const courseManager = async (event, context, callback) => {
   console.log('Starting generation of dashboard redirect response');
   try {
-    const response = await launchCourseManager({ event, ltiRequestValidator, s3Client, eventToRequest, readSchoolConfig, fetch, createJWT, findIliosUser });
+    const response = await launchCourseManager({
+      event,
+      ltiRequestValidator,
+      s3Client,
+      eventToRequest,
+      readSchoolConfig,
+      fetch,
+      createJWT,
+      findIliosUser,
+    });
     callback(null, response);
   } catch (error) {
     console.error(error);
     const response = {
       statusCode: 500,
       headers: {
-        'Content-Type': 'text/html'
+        'Content-Type': 'text/html',
       },
-      body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`
+      body: `<html><body><h2>Launch Error:</h2><p>${error}</p></body></html>`,
     };
     callback(null, response);
   }
@@ -57,7 +74,7 @@ const payload = (event, context, callback) => {
   const response = {
     statusCode: 200,
     headers: {
-      'Content-Type': 'text/html'
+      'Content-Type': 'text/html',
     },
     body: `<html>
       <body>
@@ -68,10 +85,10 @@ const payload = (event, context, callback) => {
         <p><strong>Method:</strong> ${method}</p>
         <p><strong>Host Headers:</strong> ${headers.host}</p>
       </body>
-    </html>`
+    </html>`,
   };
   callback(null, response);
   console.log('Done generating payload analysis');
 };
 
-export { dashboard, courseManager, payload};
+export { dashboard, courseManager, payload };

@@ -1,7 +1,7 @@
 import launchCourseManager from '../lib/launchCourseManager.js';
 import assert from 'assert';
 
-describe('Course Response handler works', function() {
+describe('Course Response handler works', function () {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
     const eventToRequest = () => {
@@ -14,8 +14,8 @@ describe('Course Response handler works', function() {
         },
         method: null,
         headers: {
-          host: null
-        }
+          host: null,
+        },
       };
     };
     const readSchoolConfig = async () => {
@@ -25,16 +25,25 @@ describe('Course Response handler works', function() {
         ltiUserId: null,
         secret: null,
         ltiPostField: null,
-        iliosMatchField: null
+        iliosMatchField: null,
       };
     };
     const event = null;
-    const aws  = null;
-    const fetch  = null;
-    const findIliosUser  = () => Promise.resolve(24);
-    const createJWT  = () => 'token';
+    const aws = null;
+    const fetch = null;
+    const findIliosUser = () => Promise.resolve(24);
+    const createJWT = () => 'token';
     process.env.COURSE_MANAGER_APP_URL = 'test-course-server.com';
-    const response = await launchCourseManager({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
+    const response = await launchCourseManager({
+      event,
+      ltiRequestValidator,
+      aws,
+      eventToRequest,
+      readSchoolConfig,
+      findIliosUser,
+      fetch,
+      createJWT,
+    });
 
     assert.ok('statusCode' in response);
     assert.strictEqual(response.statusCode, 302);

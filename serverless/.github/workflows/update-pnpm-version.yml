@@ -1,7 +1,7 @@
 name: Update pnpm Version
 on:
   schedule:
-    - cron: "0 23 * * 3" # Weekly on Wednesday afternoons (UTC)
+    - cron: '0 23 * * 3' # Weekly on Wednesday afternoons (UTC)
   workflow_dispatch: {}
 
 jobs:

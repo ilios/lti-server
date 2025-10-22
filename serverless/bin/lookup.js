@@ -4,23 +4,29 @@ import meow from 'meow';
 
 import fetch from 'node-fetch';
 
-const cli = meow(`
+const cli = meow(
+  `
   Usage
     $ lookup <ltiUserId> <apiServer> <apiNameSpace> <iliosSecret> <searchString>
 
   Examples
     $ lookup 61 'https://demo-api.com' 'api/v3' 'secret' test@example.edu
-`, {
-  importMeta: import.meta,
-});
+`,
+  {
+    importMeta: import.meta,
+  },
+);
 const lookup = ([ltiUserId, apiServer, apiNameSpace, iliosSecret, searchString]) => {
   if (
     undefined == ltiUserId ||
     undefined == apiServer ||
     undefined == apiNameSpace ||
     undefined == iliosSecret ||
-    undefined == searchString) {
-    process.stderr.write('Missing parameters <ltiUserId> <apiServer> <apiNameSpace> <iliosSecret> <searchString> are required.\n');
+    undefined == searchString
+  ) {
+    process.stderr.write(
+      'Missing parameters <ltiUserId> <apiServer> <apiNameSpace> <iliosSecret> <searchString> are required.\n',
+    );
     cli.showHelp([1]);
   }
   const iliosMatchField = 'authentication-username'; //we only support one right now
@@ -29,8 +35,8 @@ const lookup = ([ltiUserId, apiServer, apiNameSpace, iliosSecret, searchString])
     fetch,
     createJWT,
     config,
-    searchString
-  }).then(userId => {
+    searchString,
+  }).then((userId) => {
     process.stdout.write(`User ID: ${userId}\n`);
   });
 };

@@ -1,7 +1,7 @@
 import launchDashboard from '../lib/launchDashboard.js';
 import assert from 'assert';
 
-describe('Dashboard Response handler works', function() {
+describe('Dashboard Response handler works', function () {
   it('sends a redirect with all the right data', async function () {
     const ltiRequestValidator = () => true;
     const eventToRequest = () => {
@@ -9,12 +9,12 @@ describe('Dashboard Response handler works', function() {
         protocol: null,
         url: null,
         body: {
-          oauth_consumer_key: null
+          oauth_consumer_key: null,
         },
         method: null,
         headers: {
-          host: null
-        }
+          host: null,
+        },
       };
     };
     const readSchoolConfig = async () => {
@@ -24,16 +24,25 @@ describe('Dashboard Response handler works', function() {
         ltiUserId: null,
         secret: null,
         ltiPostField: null,
-        iliosMatchField: null
+        iliosMatchField: null,
       };
     };
     const event = null;
-    const aws  = null;
-    const fetch  = null;
-    const findIliosUser  = () => Promise.resolve(24);
-    const createJWT  = () => 'token';
+    const aws = null;
+    const fetch = null;
+    const findIliosUser = () => Promise.resolve(24);
+    const createJWT = () => 'token';
     process.env.DASHBOARD_APP_URL = 'test-dash-server.com';
-    const response = await launchDashboard({event, ltiRequestValidator, aws, eventToRequest, readSchoolConfig, findIliosUser, fetch, createJWT});
+    const response = await launchDashboard({
+      event,
+      ltiRequestValidator,
+      aws,
+      eventToRequest,
+      readSchoolConfig,
+      findIliosUser,
+      fetch,
+      createJWT,
+    });
 
     assert.ok('statusCode' in response);
     assert.strictEqual(response.statusCode, 302);
