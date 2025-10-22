@@ -1,6 +1,6 @@
 import { createHmac } from 'crypto';
 const hmac = (secret: string, message: string) => createHmac('sha1', secret).update(message).digest('base64');
-import encodeRFC5987ValueChars from './encodeRFC5987ValueChars.js';
+import encodeRFC5987ValueChars from './encodeRFC5987ValueChars';
 import { Event } from './eventToRequest';
 
 export type LtiRequestValidator = (consumerSecret: string, signature: string, request: Event) => boolean;
