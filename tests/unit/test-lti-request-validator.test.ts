@@ -1,18 +1,20 @@
-import ltiRequestValidator from '../lib/ltiRequestValidator.js';
-import encodeRFC5987ValueChars from '../lib/encodeRFC5987ValueChars.js';
-import assert from 'assert';
+import ltiRequestValidator from '../../lib/ltiRequestValidator';
+import encodeRFC5987ValueChars from '../../lib/encodeRFC5987ValueChars';
+import { expect, describe, it } from '@jest/globals';
 import { createHmac } from 'crypto';
-const hmac = (secret, message) => createHmac('sha1', secret).update(message).digest('base64');
+import { Event } from '../../lib/eventToRequest';
+import { ParsedUrlQuery } from 'querystring';
 
-const createRequest = (body) => {
+const hmac = (secret: string, message: string) => createHmac('sha1', secret).update(message).digest('base64');
+
+const createRequest = (body: ParsedUrlQuery): Event => {
   return {
+    schoolName: '',
     protocol: 'https',
-    url: null,
+    url: '',
     body,
     method: 'POST',
-    headers: {
-      host: null,
-    },
+    host: '',
   };
 };
 
@@ -25,10 +27,10 @@ describe('Validate LTI Request', function () {
     first: 'some data',
     second: '--some*data',
   };
-  let encodedParts;
-  let encodedString;
-  let encodedUrl;
-  let hash;
+  let encodedParts: string[];
+  let encodedString: string;
+  let encodedUrl: string;
+  let hash: string;
 
   beforeEach(function () {
     encodedParts = Object.entries(data)
@@ -48,7 +50,7 @@ describe('Validate LTI Request', function () {
     request.url = url;
 
     const result = ltiRequestValidator(secret, token, request);
-    assert.strictEqual(result, true);
+    expect(result).toEqual(true);
   });
 
   it('returns false when the secret is different', async function () {
@@ -56,7 +58,7 @@ describe('Validate LTI Request', function () {
     const request = createRequest(body);
 
     const result = ltiRequestValidator('wrong secret', token, request);
-    assert.strictEqual(result, false);
+    expect(result).toEqual(false);
   });
 
   it('returns false when the token is different', async function () {
@@ -64,7 +66,7 @@ describe('Validate LTI Request', function () {
     const request = createRequest(body);
 
     const result = ltiRequestValidator(secret, 'wrong token', request);
-    assert.strictEqual(result, false);
+    expect(result).toEqual(false);
   });
 
   it('returns false when signature is wrong', async function () {
@@ -72,16 +74,16 @@ describe('Validate LTI Request', function () {
     const request = createRequest(body);
 
     const result = ltiRequestValidator(secret, token, request);
-    assert.strictEqual(result, false);
+    expect(result).toEqual(false);
   });
 
   it('returns false when the data does not match the signature', async function () {
-    const body = Object.assign({ oauth_signature: hash }, data);
+    const body = Object.assign({ oauth_signature: hash }, data) as any;
     delete body.first;
     const request = createRequest(body);
 
     const result = ltiRequestValidator(secret, token, request);
-    assert.strictEqual(result, false);
+    expect(result).toEqual(false);
   });
 
   it('validates test data', async function () {
@@ -104,6 +106,6 @@ describe('Validate LTI Request', function () {
     request.method = 'GET';
 
     const result = ltiRequestValidator(secret, token, request);
-    assert.strictEqual(result, true);
+    expect(result).toEqual(true);
   });
 });

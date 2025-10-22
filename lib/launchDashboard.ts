@@ -24,7 +24,7 @@ export default async (
       console.info(request.body);
       throw new Error(`Unable to extract a valid searchString from the request, looking for ${config.ltiPostField}`);
     }
-    const userId = await findIliosUser(config, searchString);
+    const userId = await findIliosUser(config, searchString, createJWT);
     if (userId) {
       console.log(`Found user ${userId}.`);
       const token = createJWT(userId, config.apiServer, config.apiNameSpace, config.iliosSecret);

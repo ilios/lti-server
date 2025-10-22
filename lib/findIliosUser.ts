@@ -1,9 +1,9 @@
+import { CreateJWT } from './createJWT';
 import { SchoolConfig } from './readSchoolConfig';
-import createJWT from './createJWT';
 
-export type FindIliosUser = (config: SchoolConfig, searchString: string) => Promise<number>;
+export type FindIliosUser = (config: SchoolConfig, searchString: string, createJWT: CreateJWT) => Promise<number>;
 
-export default async (config: SchoolConfig, searchString: string): Promise<number> => {
+export default async (config: SchoolConfig, searchString: string, createJWT: CreateJWT): Promise<number> => {
   let url = config.apiServer + config.apiNameSpace;
   switch (config.iliosMatchField) {
     case 'authentication-username':
