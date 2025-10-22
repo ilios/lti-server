@@ -1,8 +1,8 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { S3Client } from '@aws-sdk/client-s3';
 import querystring from 'querystring';
-import eventToRequest from './lib/eventToRequest.js';
-import launchDashboard from './lib/launchDashboard.js';
+import eventToRequest from './lib/eventToRequest';
+import launchDashboard from './lib/launchDashboard';
 import ltiRequestValidator from './lib/ltiRequestValidator';
 import readSchoolConfig from './lib/readSchoolConfig';
 import findIliosUser from './lib/findIliosUser';
