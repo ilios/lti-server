@@ -6,7 +6,7 @@ import { Readable } from 'stream';
 import fs from 'fs';
 import path from 'path';
 describe('Read the configuration for a school', () => {
-  let json = fs.readFileSync(path.join(__dirname, '../sample-config.json'));
+  const json = fs.readFileSync(path.join(__dirname, '../sample-config.json'));
   const s3Mock = mockClient(S3Client);
   beforeEach(() => {
     s3Mock.on(GetObjectCommand).resolves({
