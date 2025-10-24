@@ -21,7 +21,7 @@ describe('Dashboard Response handler works', () => {
       host: '',
     };
 
-    let json = fs.readFileSync(path.join(__dirname, '../sample-config.json'));
+    const json = fs.readFileSync(path.join(__dirname, '../sample-config.json'));
     const s3Mock = mockClient(S3Client);
     s3Mock.on(GetObjectCommand).resolves({
       Body: sdkStreamMixin(Readable.from(json)),
@@ -29,7 +29,7 @@ describe('Dashboard Response handler works', () => {
 
     const ltiRequestValidator = jest.fn(() => true);
     const readSchoolConfig = jest.fn(
-      async (str: string, S3Client): Promise<SchoolConfig> => ({
+      async (): Promise<SchoolConfig> => ({
         apiServer: '',
         apiNameSpace: '',
         ltiUserId: 0,

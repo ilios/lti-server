@@ -14,7 +14,7 @@ describe('Generates a JWT from provided data', function () {
   beforeEach(function () {
     token = createJWT(userId, apiHost, apiNameSpace, secret);
     expect(token.length).toBeGreaterThanOrEqual(200);
-    let payload = jwt.decode(token);
+    const payload = jwt.decode(token);
     if (payload && typeof payload === 'object') {
       obj = payload;
     }
