@@ -1,3 +1,9 @@
+# SAM default build folder
+.aws-sam/
+
+# Jest Coverage Data
+coverage/
+
 # Logs
 logs
 *.log
@@ -10,9 +16,6 @@ pids
 
 # Dependency directories
 node_modules
-
-# Serverless directories
-.serverless
 
 # ESLint cache
 .eslintcache

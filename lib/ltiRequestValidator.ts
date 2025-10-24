@@ -1,14 +1,19 @@
 import { createHmac } from 'crypto';
-const hmac = (secret, message) => createHmac('sha1', secret).update(message).digest('base64');
-import encodeRFC5987ValueChars from './encodeRFC5987ValueChars.js';
+const hmac = (secret: string, message: string) => createHmac('sha1', secret).update(message).digest('base64');
+import encodeRFC5987ValueChars from './encodeRFC5987ValueChars';
+import { Event } from './eventToRequest';
 
-export default (secret, token, { body, method, url }) => {
+export type LtiRequestValidator = (consumerSecret: string, signature: string, request: Event) => boolean;
+
+export default (secret: string, token: string, { body, method, url }: Event): boolean => {
   const signature = body.oauth_signature;
   delete body.oauth_signature;
-  const encodedParts = Object.entries(body).map(([key, value]) => {
-    const encodedValue = encodeRFC5987ValueChars(value);
-    return `${key}=${encodedValue}`;
-  }).sort();
+  const encodedParts = Object.entries(body)
+    .map(([key, value]) => {
+      const encodedValue = encodeRFC5987ValueChars(value as string);
+      return `${key}=${encodedValue}`;
+    })
+    .sort();
 
   const encodedString = encodeRFC5987ValueChars(encodedParts.join('&'));
   const encodedUrl = encodeRFC5987ValueChars(url);
