@@ -44,7 +44,7 @@ $ npm run test
 ```
 $ npm run cli -- --help
 
-Usage: generate-url [options] <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>
+Usage: `npm run cli <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>`
 
 Generate an LTI login URL with a JWT token
 
