@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "commander": "^14.0.1",
+    "commander": "^14.0.2",
     "esbuild": "^0.25.11",
     "jsonwebtoken": "^9.0.2"
   },
