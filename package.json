@@ -14,7 +14,7 @@
     "test": "npm run compile && npm run unit",
     "cli": "tsx bin/cli.ts",
     "lookup": "tsx bin/lookup.ts",
-    "prepare": "husky"
+    "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
