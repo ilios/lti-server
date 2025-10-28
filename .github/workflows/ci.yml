@@ -24,3 +24,16 @@ jobs:
         run: npm run lint
       - name: test
         run: npm run test
+  build:
+    name: Build SAM
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: install dependencies
+        run: npm install
+      - uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: sam build --use-container
