@@ -3,7 +3,7 @@ name: Deploy Production Build
 on:
   push:
     tags:
-      - "*"
+      - '*'
 
 concurrency: deploy-production
 
@@ -13,31 +13,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-      - run: pnpm install
-      - run: pnpm run test
+      - run: npm install
+      - run: npm run test
 
   deploy:
-    name: Deploy Lambda Function
+    name: Deploy SAM
     needs: test
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v6
+      - uses: aws-actions/setup-sam@v2
         with:
-          node-version: 22
-      - name: install dependencies hoisted for lambda
-        run: pnpm install --node-linker=hoisted
-      - name: Serverless Deploy
-        run: pnpm run deploy:production
+          use-installer: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: sam build --use-container
+      - run: sam deploy --config-env prod --no-confirm-changeset --no-fail-on-empty-changeset
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - uses: act10ns/slack@v2
         if: failure()
         env:
