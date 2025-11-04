@@ -2,6 +2,8 @@
 
 > LTI Provider for launching an Ilios dashboard
 
+First, make sure you have `sam` [installed](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html#install-sam-cli-instructions) on your computer.
+
 To build and deploy, run the following in your shell:
 
 ```bash
