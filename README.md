@@ -35,13 +35,13 @@ lti-server$ sam logs -n DashboardFunction --stack-name lti-server --tail
 Tests are defined in the `tests` folder in this project.
 
 ```bash
-$ npm install
-$ npm run test
+npm install
+npm run test
 ```
 
 ## CLI
 
-```
+```bash
 $ npm run cli -- --help
 
 Usage: `npm run cli <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>`
