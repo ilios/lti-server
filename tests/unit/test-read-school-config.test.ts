@@ -38,7 +38,7 @@ describe('Read the configuration for a school', () => {
 
   it('dies well when a bad config is requested', async () => {
     await expect(readSchoolConfig('bad-school-config', s3Mock as unknown as S3Client)).rejects.toThrow(
-      'The Consumer Key "bad-school-config" is not known to Ilios. Please contact support@iliosproject.org to set it up.',
+      'The Configuration for "bad-school-config" is not known to Ilios. Please contact support@iliosproject.org to set it up.',
     );
   });
 });

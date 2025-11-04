@@ -1,7 +1,7 @@
 import findIliosUser from '../../lib/findIliosUser';
 import { expect, describe, it } from '@jest/globals';
 import fetchMock from 'jest-fetch-mock';
-import { SchoolConfig } from '../../lib/readSchoolConfig';
+import { Lti11SchoolConfig } from '../../lib/readSchoolConfig';
 import { CreateJWT } from '../../lib/createJWT';
 
 describe('Get the ID for a user', function () {
@@ -15,7 +15,7 @@ describe('Get the ID for a user', function () {
     fetchMock.disableMocks();
   });
 
-  const config: SchoolConfig = {
+  const config: Lti11SchoolConfig = {
     consumerSecret: 'school-name',
     apiServer: 'https://test-ilios.com',
     apiNameSpace: '/test/api/v3',
@@ -23,6 +23,7 @@ describe('Get the ID for a user', function () {
     iliosSecret: 'secret123',
     ltiPostField: 'ext_user_username',
     iliosMatchField: 'authentication-username',
+    ltiVersion: 1.1,
   };
   const searchString = 'test-username';
   const createJWT: CreateJWT = (id: number) => `TOKEN${id}`;

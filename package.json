@@ -20,6 +20,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "commander": "^14.0.2",
     "esbuild": "^0.25.12",
+    "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {

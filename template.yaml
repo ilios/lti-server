@@ -8,7 +8,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 5
+    Timeout: 30
   Api:
     OpenApiVersion: 3.0.1 #meaningless workaround, see https://github.com/aws/serverless-application-model/issues/3447#issuecomment-1828702747
 
@@ -50,6 +50,38 @@ Resources:
           Properties:
             RestApiId: !Ref ApiGateway
             Path: /dashboard
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: 'es2020'
+        Sourcemap: true
+        EntryPoints:
+          - app.ts
+        External:
+          - '@aws-sdk/client-s3'
+  LoginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.loginHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          CONFIG_BUCKET: !Ref ConfigBucket
+          DASHBOARD_APP_URL: !Ref LtiDashboardURL
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ConfigBucket
+      Events:
+        Payload:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /login
             Method: post
     Metadata:
       BuildMethod: esbuild

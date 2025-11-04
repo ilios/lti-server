@@ -2,6 +2,10 @@ import { APIGatewayProxyEvent } from 'aws-lambda';
 import eventToRequest from '../../lib/eventToRequest';
 import { expect, describe, it } from '@jest/globals';
 
+jest.mock('jose', () => ({
+  decodeJwt: jest.fn(),
+}));
+
 describe('Parses a lambda event into a node request', function () {
   const protocol = 'https';
   const host = 'localhost';
@@ -48,6 +52,8 @@ describe('Parses a lambda event into a node request', function () {
         user: '',
         userAgent: '',
         userArn: '',
+        vpcId: '',
+        vpceId: '',
       },
       domainName: 'baz.io',
       path,

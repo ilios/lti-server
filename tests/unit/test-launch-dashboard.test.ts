@@ -1,6 +1,6 @@
-import launchDashboard from '../../lib/launchDashboard';
+import { launchDashboardV11 } from '../../lib/launchDashboard';
 import { SchoolConfig } from '../../lib/readSchoolConfig';
-import { Event } from '../../lib/eventToRequest';
+import { Lti11Event } from '../../lib/eventToRequest';
 import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { sdkStreamMixin } from '@aws-sdk/util-stream-node';
 import { mockClient } from 'aws-sdk-client-mock';
@@ -10,7 +10,7 @@ import path from 'path';
 
 describe('Dashboard Response handler works', () => {
   it('sends a redirect with all the right data', async () => {
-    const event: Event = {
+    const event: Lti11Event = {
       schoolName: '',
       protocol: 'https',
       url: '',
@@ -19,6 +19,7 @@ describe('Dashboard Response handler works', () => {
       },
       method: 'POST',
       host: '',
+      ltiVersion: 1.1,
     };
 
     const json = fs.readFileSync(path.join(__dirname, '../sample-config.json'));
@@ -37,6 +38,7 @@ describe('Dashboard Response handler works', () => {
         iliosMatchField: '',
         consumerSecret: '',
         iliosSecret: '',
+        ltiVersion: 1.1,
       }),
     );
     const findIliosUser = jest.fn(() => Promise.resolve(24));
@@ -44,7 +46,7 @@ describe('Dashboard Response handler works', () => {
 
     process.env.DASHBOARD_APP_URL = 'test-dash-server.com';
 
-    const response = await launchDashboard(
+    const response = await launchDashboardV11(
       event,
       s3Mock as unknown as S3Client,
       ltiRequestValidator,
