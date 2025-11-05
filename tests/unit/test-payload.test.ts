@@ -3,6 +3,10 @@ import { payloadHandler } from '../../app';
 import { expect, describe, it } from '@jest/globals';
 import querystring from 'querystring';
 
+jest.mock('jose', () => ({
+  decodeJwt: jest.fn(),
+}));
+
 describe('Unit test for payload handler', function () {
   it('verifies successful response', async () => {
     const event: APIGatewayProxyEvent = {

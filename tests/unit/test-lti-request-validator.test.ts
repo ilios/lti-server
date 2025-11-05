@@ -2,7 +2,7 @@ import ltiRequestValidator from '../../lib/ltiRequestValidator';
 import encodeRFC5987ValueChars from '../../lib/encodeRFC5987ValueChars';
 import { expect, describe, it } from '@jest/globals';
 import { createHmac } from 'crypto';
-import { Event } from '../../lib/eventToRequest';
+import { Lti11Event } from '../../lib/eventToRequest';
 import { ParsedUrlQuery } from 'querystring';
 
 interface TestData {
@@ -14,7 +14,7 @@ interface TestData {
 
 const hmac = (secret: string, message: string) => createHmac('sha1', secret).update(message).digest('base64');
 
-const createRequest = (body: ParsedUrlQuery): Event => {
+const createRequest = (body: ParsedUrlQuery): Lti11Event => {
   return {
     schoolName: '',
     protocol: 'https',
@@ -22,6 +22,7 @@ const createRequest = (body: ParsedUrlQuery): Event => {
     body,
     method: 'POST',
     host: '',
+    ltiVersion: 1.1,
   };
 };
 
