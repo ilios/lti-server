@@ -8,7 +8,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 5
+    Timeout: 30
   Api:
     OpenApiVersion: 3.0.1 #meaningless workaround, see https://github.com/aws/serverless-application-model/issues/3447#issuecomment-1828702747
 
@@ -41,9 +41,12 @@ Resources:
         Variables:
           CONFIG_BUCKET: !Ref ConfigBucket
           DASHBOARD_APP_URL: !Ref LtiDashboardURL
+          STATE_TABLE_NAME: !Ref StateTable
       Policies:
         - S3ReadPolicy:
             BucketName: !Ref ConfigBucket
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StateTable
       Events:
         Payload:
           Type: Api
@@ -61,6 +64,7 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   LoginFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -122,6 +126,7 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   ConfigBucket:
     Type: AWS::S3::Bucket
     Properties:

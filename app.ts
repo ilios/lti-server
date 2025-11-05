@@ -1,16 +1,20 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { S3Client } from '@aws-sdk/client-s3';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import querystring from 'querystring';
 import eventToRequest from './lib/eventToRequest';
-import launchDashboard from './lib/launchDashboard';
+import { launchDashboardV11, launchDashboardV13 } from './lib/launchDashboard';
 import ltiRequestValidator from './lib/ltiRequestValidator';
 import readSchoolConfig from './lib/readSchoolConfig';
 import findIliosUser from './lib/findIliosUser';
 import createJWT from './lib/createJWT';
+import { generateAndStore, validate } from './lib/manageStateAndNonce';
+import validateAndExtractLTI13JWT from './lib/validateAndExtractLTI13JWT';
 
 //create the client outside of the handler:
 //https://github.com/aws/aws-sdk-js-v3?tab=readme-ov-file#best-practices
 const s3Client = new S3Client({});
+const dynamoDbClient = new DynamoDBClient();
 
 /**
  *
@@ -23,18 +27,32 @@ const s3Client = new S3Client({});
  */
 export const dashboardHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Starting generation of dashboard redirect response');
+  console.log(event);
   const request = eventToRequest(event);
-  try {
-    const response = await launchDashboard(
-      request,
-      s3Client,
-      ltiRequestValidator,
-      readSchoolConfig,
-      findIliosUser,
-      createJWT,
-    );
 
-    return response;
+  try {
+    switch (request.ltiVersion) {
+      case 1.3:
+        return await launchDashboardV13(
+          request,
+          s3Client,
+          dynamoDbClient,
+          validateAndExtractLTI13JWT,
+          readSchoolConfig,
+          findIliosUser,
+          createJWT,
+          validate,
+        );
+      case 1.1:
+        return await launchDashboardV11(
+          request,
+          s3Client,
+          ltiRequestValidator,
+          readSchoolConfig,
+          findIliosUser,
+          createJWT,
+        );
+    }
   } catch (error) {
     console.error(error);
     return {
