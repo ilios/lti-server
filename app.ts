@@ -60,7 +60,7 @@ export const payloadHandler = async (event: APIGatewayProxyEvent): Promise<APIGa
   console.log('Starting generation of payload analysis');
   console.log('Event Data:', event);
   const { body, httpMethod, headers, requestContext } = event;
-  const { domainName, protocol } = requestContext;
+  const { domainName, protocol, path } = requestContext;
 
   const response = {
     statusCode: 200,
@@ -72,6 +72,7 @@ export const payloadHandler = async (event: APIGatewayProxyEvent): Promise<APIGa
         <h2>LTI POST Payload:</h2>
         <p><strong>Protocol:</strong> ${protocol}</p>
         <p><strong>Domain Name:</strong> ${domainName}</p>
+        <p><strong>Path:</strong> ${path}</p>
         <p><strong>Body:</strong> ${JSON.stringify(querystring.parse(body ?? ''))}</p>
         <p><strong>Method:</strong> ${httpMethod}</p>
         <p><strong>Headers:</strong> ${JSON.stringify(headers)}</p>

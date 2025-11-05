@@ -44,6 +44,8 @@ describe('Unit test for payload handler', function () {
           user: '',
           userAgent: '',
           userArn: '',
+          vpceId: '',
+          vpcId: '',
         },
         domainName: 'baz.io',
         path: '/payload',
@@ -65,6 +67,7 @@ describe('Unit test for payload handler', function () {
                     <h2>LTI POST Payload:</h2>
                     <p><strong>Protocol:</strong> HTTP/1.1</p>
                     <p><strong>Domain Name:</strong> baz.io</p>
+                    <p><strong>Path:</strong>/payload</p>
                     <p><strong>Body:</strong> {"one":"1","two":"2"}</p>
                     <p><strong>Method:</strong> post</p>
                     <p><strong>Headers:</strong> {"foo":"bar"}</p>
