@@ -7,6 +7,8 @@ import { ReadSchoolConfig } from './readSchoolConfig';
 import { FindIliosUser } from './findIliosUser';
 import { CreateJWT } from './createJWT';
 import { ValidateAndExtractLTI13JWT } from './validateAndExtractLTI13JWT';
+import { Validate } from './manageStateAndNonce';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 export const launchDashboardV11 = async (
   request: Lti11Event,
@@ -60,13 +62,21 @@ export const launchDashboardV11 = async (
 export const launchDashboardV13 = async (
   request: Lti13Event,
   s3Client: S3Client,
+  dynamoDbClient: DynamoDBClient,
   validateAndExtractLTI13JWT: ValidateAndExtractLTI13JWT,
   readSchoolConfig: ReadSchoolConfig,
   findIliosUser: FindIliosUser,
   createJWT: CreateJWT,
+  validate: Validate,
 ): Promise<APIGatewayProxyResult> => {
   if (!process.env.DASHBOARD_APP_URL) {
     throw new Error('DASHBOARD_APP_URL is not defined, nowhere to redirect authenticated user');
+  }
+
+  const isValid = validate(dynamoDbClient, request);
+
+  if (!isValid) {
+    throw new Error('Unable to validate state/nonce');
   }
 
   const config = await readSchoolConfig(request.clientId, s3Client);

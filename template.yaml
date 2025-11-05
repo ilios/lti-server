@@ -41,9 +41,12 @@ Resources:
         Variables:
           CONFIG_BUCKET: !Ref ConfigBucket
           DASHBOARD_APP_URL: !Ref LtiDashboardURL
+          STATE_TABLE_NAME: !Ref StateTable
       Policies:
         - S3ReadPolicy:
             BucketName: !Ref ConfigBucket
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StateTable
       Events:
         Payload:
           Type: Api
@@ -61,6 +64,7 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   LoginFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -73,9 +77,12 @@ Resources:
         Variables:
           CONFIG_BUCKET: !Ref ConfigBucket
           DASHBOARD_APP_URL: !Ref LtiDashboardURL
+          STATE_TABLE_NAME: !Ref StateTable
       Policies:
         - S3ReadPolicy:
             BucketName: !Ref ConfigBucket
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StateTable
       Events:
         Payload:
           Type: Api
@@ -93,6 +100,7 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   PayloadFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -118,10 +126,25 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   ConfigBucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Sub '${AWS::StackName}-launch-configuration'
+  StateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub '${AWS::StackName}-StateTable'
+      AttributeDefinitions:
+        - AttributeName: state
+          AttributeType: S
+      KeySchema:
+        - AttributeName: state
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+      BillingMode: PAY_PER_REQUEST
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

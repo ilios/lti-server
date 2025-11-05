@@ -1,5 +1,6 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { S3Client } from '@aws-sdk/client-s3';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import querystring from 'querystring';
 import eventToRequest from './lib/eventToRequest';
 import { launchDashboardV11, launchDashboardV13 } from './lib/launchDashboard';
@@ -7,12 +8,13 @@ import ltiRequestValidator from './lib/ltiRequestValidator';
 import readSchoolConfig from './lib/readSchoolConfig';
 import findIliosUser from './lib/findIliosUser';
 import createJWT from './lib/createJWT';
+import { generateAndStore, validate } from './lib/manageStateAndNonce';
 import validateAndExtractLTI13JWT from './lib/validateAndExtractLTI13JWT';
-import { randomUUID } from 'crypto';
 
 //create the client outside of the handler:
 //https://github.com/aws/aws-sdk-js-v3?tab=readme-ov-file#best-practices
 const s3Client = new S3Client({});
+const dynamoDbClient = new DynamoDBClient();
 
 /**
  *
@@ -34,10 +36,12 @@ export const dashboardHandler = async (event: APIGatewayProxyEvent): Promise<API
         return await launchDashboardV13(
           request,
           s3Client,
+          dynamoDbClient,
           validateAndExtractLTI13JWT,
           readSchoolConfig,
           findIliosUser,
           createJWT,
+          validate,
         );
       case 1.1:
         return await launchDashboardV11(
@@ -145,12 +149,7 @@ export const loginHandler = async (event: APIGatewayProxyEvent): Promise<APIGate
 
   delete params.iss;
 
-  // Generate secure state and nonce
-  const state = randomUUID();
-  const nonce = randomUUID();
-
-  // Store state and nonce securely in DynamoDB
-  // await storeStateAndNonce(state, nonce);
+  const { state, nonce } = await generateAndStore(dynamoDbClient);
 
   params.state = state;
   params.nonce = nonce;
