@@ -43,6 +43,7 @@ describe('Read the configuration for a school', () => {
     expect(result.keysetUrl).toBe('https://second-test-moodle/mod/lti/certs.php');
     expect(result.issuer).toBe('https://second-test-moodle');
     expect(result.clientId).toBe('second-school-config');
+    expect(result.authenticationRequestUrl).toBe('https://second-test-moodle/mod/lti/auth.php');
   });
 
   it('dies well when a bad config is requested', async () => {

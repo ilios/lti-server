@@ -19,6 +19,7 @@
     "iliosMatchField": "authentication-username",
     "ltiVersion": 1.3,
     "keysetUrl": "https://second-test-moodle/mod/lti/certs.php",
+    "authenticationRequestUrl": "https://second-test-moodle/mod/lti/auth.php",
     "issuer": "https://second-test-moodle",
     "clientId": "second-school-config"
   }

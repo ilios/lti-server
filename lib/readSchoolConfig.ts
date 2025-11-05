@@ -16,6 +16,7 @@ export interface Lti11SchoolConfig extends BaseConfig {
 export interface Lti13SchoolConfig extends BaseConfig {
   ltiVersion: 1.3;
   keysetUrl: string;
+  authenticationRequestUrl: string;
   issuer: string;
   clientId: string;
 }

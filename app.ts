@@ -160,7 +160,25 @@ export const loginHandler = async (event: APIGatewayProxyEvent): Promise<APIGate
 
   const qp = querystring.encode(params);
 
-  const authorizationUrl = `${iss}/mod/lti/auth.php?${qp}`;
+  const config = await readSchoolConfig(client_id, s3Client);
+
+  if (config.ltiVersion !== 1.3) {
+    console.log(config);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Config isn't suitable for v1.3 LTI launch" }),
+    };
+  }
+
+  if (!config.authenticationRequestUrl) {
+    console.log(config);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Missing authenticationRequestUrl in SchoolConfig' }),
+    };
+  }
+
+  const authorizationUrl = `${config.authenticationRequestUrl}?${qp}`;
 
   console.log(`Redirecting to ${authorizationUrl}`);
 
