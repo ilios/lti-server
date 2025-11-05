@@ -1,6 +1,7 @@
 import findIliosUser from '../lib/findIliosUser.js';
 import createJWT from '../lib/createJWT.js';
 import { Command } from 'commander';
+import { Lti11SchoolConfig } from '../lib/readSchoolConfig.js';
 
 const program = new Command();
 
@@ -15,7 +16,7 @@ program
   .action(
     async (ltiUserId: string, apiServer: string, apiNameSpace: string, iliosSecret: string, searchString: string) => {
       const iliosMatchField = 'authentication-username';
-      const config = {
+      const config: Lti11SchoolConfig = {
         ltiUserId: Number(ltiUserId),
         apiServer,
         apiNameSpace,
@@ -23,6 +24,7 @@ program
         iliosMatchField,
         consumerSecret: '',
         ltiPostField: '',
+        ltiVersion: 1.1,
       };
       const userId = await findIliosUser(config, searchString, createJWT);
       process.stdout.write(`User ID: ${userId}\n`);
