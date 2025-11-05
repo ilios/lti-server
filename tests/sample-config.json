@@ -6,7 +6,8 @@
     "consumerSecret": "secret123",
     "iliosSecret": "secret123",
     "ltiPostField": "ext_user_username",
-    "iliosMatchField": "authentication-username"
+    "iliosMatchField": "authentication-username",
+    "ltiVersion": 1.1
   },
   "second-school-config": {
     "apiServer": "https://second-test-ilios.com",
@@ -15,6 +16,10 @@
     "consumerSecret": "secret456!",
     "iliosSecret": "abcd",
     "ltiPostField": "ext_user_username",
-    "iliosMatchField": "authentication-username"
+    "iliosMatchField": "authentication-username",
+    "ltiVersion": 1.3,
+    "keysetUrl": "https://second-test-moodle/mod/lti/certs.php",
+    "issuer": "https://second-test-moodle",
+    "clientId": "second-school-config"
   }
 }
