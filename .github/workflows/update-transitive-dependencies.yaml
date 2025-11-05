@@ -15,7 +15,7 @@ jobs:
           node-version: 22
       - name: remove and re-create lock file
         run: |
-          rm package-locak.json
+          rm package-lock.json
           npm install
       - name: Create Pull Request
         id: cpr
