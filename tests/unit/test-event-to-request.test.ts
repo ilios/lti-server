@@ -1,16 +1,20 @@
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import eventToRequest from '../../lib/eventToRequest';
+import eventToRequest, { Lti11Event, Lti13Event } from '../../lib/eventToRequest';
 import { expect, describe, it } from '@jest/globals';
+import { decodeJwt } from 'jose';
 
-describe('Parses a lambda event into a node request', function () {
+jest.mock('jose', () => ({
+  decodeJwt: jest.fn(),
+}));
+
+describe('Parses a lambda event into a standard interface', function () {
   const protocol = 'https';
   const host = 'localhost';
   const path = '/dev/lti';
-  const body = 'foo=bar&bar=foo&what=1&oauth_consumer_key=blue';
   const method = 'POST';
-  const testEvent: APIGatewayProxyEvent = {
+  const baseEvent: APIGatewayProxyEvent = {
     httpMethod: method,
-    body,
+    body: '',
     headers: {
       'X-Forwarded-Proto': protocol,
       Host: host,
@@ -48,6 +52,8 @@ describe('Parses a lambda event into a node request', function () {
         user: '',
         userAgent: '',
         userArn: '',
+        vpcId: '',
+        vpceId: '',
       },
       domainName: 'baz.io',
       path,
@@ -62,12 +68,10 @@ describe('Parses a lambda event into a node request', function () {
     stageVariables: {},
   };
 
-  it('returns a correctly structured response', function () {
-    const request = eventToRequest(testEvent);
-    expect(request).toHaveProperty('method');
-    expect(request).toHaveProperty('url');
-    expect(request).toHaveProperty('protocol');
-    expect(request).toHaveProperty('body');
+  it('returns a correctly structured response for v1.1 LTI Requests', function () {
+    const lti11TestEvent = { ...baseEvent };
+    lti11TestEvent.body = 'foo=bar&bar=foo&what=1&oauth_consumer_key=blue';
+    const request = eventToRequest(lti11TestEvent) as Lti11Event;
     expect(request.body).toHaveProperty('foo');
     expect(request.body).toHaveProperty('bar');
     expect(request.body).toHaveProperty('what');
@@ -78,5 +82,21 @@ describe('Parses a lambda event into a node request', function () {
     expect(request.body.bar).toEqual('foo');
     expect(request.body.what).toEqual('1');
     expect(request.host).toEqual(host);
+    expect(request.schoolName).toEqual('blue');
+  });
+
+  it('returns a correctly structured response for v1.3 LTI Requests', function () {
+    (decodeJwt as jest.MockedFunction<typeof decodeJwt>).mockReturnValue({ aud: 'jackson', nonce: 'nce1' });
+    const lti13TestEvent = { ...baseEvent };
+
+    lti13TestEvent.body = `id_token=123&state=123S`;
+    const request = eventToRequest(lti13TestEvent) as Lti13Event;
+    expect(request.method).toEqual(method);
+    expect(request.url).toEqual(`${protocol}://${host}${path}`);
+    expect(request.protocol).toEqual(protocol);
+    expect(request.host).toEqual(host);
+    expect(request.nonce).toEqual('nce1');
+    expect(request.state).toEqual('123S');
+    expect(request.clientId).toEqual('jackson');
   });
 });
