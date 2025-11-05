@@ -61,6 +61,42 @@ Resources:
           - app.ts
         External:
           - '@aws-sdk/client-s3'
+  LoginFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.loginHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          CONFIG_BUCKET: !Ref ConfigBucket
+          DASHBOARD_APP_URL: !Ref LtiDashboardURL
+          STATE_TABLE_NAME: !Ref StateTable
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref ConfigBucket
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StateTable
+      Events:
+        Payload:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGateway
+            Path: /login
+            Method: post
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: 'es2020'
+        Sourcemap: true
+        EntryPoints:
+          - app.ts
+        External:
+          - '@aws-sdk/client-s3'
+          - '@aws-sdk/client-dynamodb'
   PayloadFunction:
     Type: AWS::Serverless::Function
     Properties:

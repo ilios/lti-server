@@ -83,3 +83,74 @@ export const payloadHandler = async (event: APIGatewayProxyEvent): Promise<APIGa
 
   return response;
 };
+
+/**
+ *
+ * Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+ * @param {Object} event - API Gateway Lambda Proxy Input Format
+ *
+ * Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+ * @returns {Object} object - API Gateway Lambda Proxy Output Format
+ *
+ */
+export const loginHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  console.log('Starting the login flow');
+  console.log('Event Data:', event);
+  const { body } = event;
+
+  if (!body) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Missing event body' }),
+    };
+  }
+
+  const params = querystring.parse(body);
+  const { iss, login_hint, client_id, target_link_uri } = params;
+
+  // Validate mandatory parameters
+  if (!iss || !login_hint || !client_id || !target_link_uri) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Missing required parameters' }),
+    };
+  }
+
+  // Validate mandatory parameters
+  if (
+    typeof iss !== 'string' ||
+    typeof login_hint !== 'string' ||
+    typeof client_id !== 'string' ||
+    typeof target_link_uri !== 'string'
+  ) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid parameter types' }),
+    };
+  }
+
+  delete params.iss;
+
+  const { state, nonce } = await generateAndStore(dynamoDbClient);
+
+  params.state = state;
+  params.nonce = nonce;
+  params.response_type = 'id_token';
+  params.scope = 'openid';
+  params.redirect_uri = target_link_uri;
+  params.response_mode = 'form_post';
+
+  const qp = querystring.encode(params);
+
+  const authorizationUrl = `${iss}/mod/lti/auth.php?${qp}`;
+
+  console.log(`Redirecting to ${authorizationUrl}`);
+
+  return {
+    statusCode: 302,
+    headers: {
+      Location: authorizationUrl,
+    },
+    body: '',
+  };
+};
