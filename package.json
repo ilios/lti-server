@@ -33,7 +33,7 @@
     "@types/luxon": "^3.7.1",
     "@types/node": "^20.5.7",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
-    "@typescript-eslint/parser": "^5.10.2",
+    "@typescript-eslint/parser": "^8.46.3",
     "aws-sdk-client-mock": "^4.1.0",
     "eslint": "^8.8.0",
     "eslint-config-prettier": "^10.1.8",
