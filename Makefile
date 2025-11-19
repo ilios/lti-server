@@ -3,13 +3,12 @@
 
 install: package.json
 	pnpm install --prod --ignore-scripts
-	pnpm add -D esbuild
 
 build-DashboardFunction: install
-	pnpm exec esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
+	pnpx esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
 
 build-LoginFunction: install
-	pnpm exec esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
+	pnpx esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
 
 build-PayloadFunction: install
-	pnpm exec esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
+	pnpx esbuild app.ts --bundle --platform=node --target=es2020 --external:@aws-sdk/client-s3 --external:@aws-sdk/client-dynamodb --minify --sourcemap --outfile=$(ARTIFACTS_DIR)/app.js
