@@ -1,7 +1,7 @@
 .PHONY: build-DashboardFunction build-LoginFunction build-PayloadFunction
 
-
 install: package.json
+	pnpm --version || npm install -g pnpm
 	pnpm install --prod --ignore-scripts
 
 build-DashboardFunction: install
