@@ -37,16 +37,16 @@ lti-server$ sam logs -n DashboardFunction --stack-name lti-server --tail
 Tests are defined in the `tests` folder in this project.
 
 ```bash
-npm install
-npm run test
+pnpm install
+pnpm run test
 ```
 
 ## CLI
 
 ```bash
-$ npm run cli -- --help
+$ pnpm run cli -- --help
 
-Usage: `npm run cli <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>`
+Usage: `pnpm run cli <ltiAppUrl> <apiServer> <apiNameSpace> <iliosSecret> <userId>`
 
 Generate an LTI login URL with a JWT token
 

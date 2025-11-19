@@ -11,7 +11,7 @@
     "lint": "eslint . --cache",
     "format": "prettier . --cache --write",
     "compile": "tsc",
-    "test": "npm run compile && npm run unit",
+    "test": "pnpm run compile && pnpm run unit",
     "cli": "tsx bin/cli.ts",
     "lookup": "tsx bin/lookup.ts",
     "prepare": "node .husky/install.mjs"
@@ -47,5 +47,6 @@
     "ts-node": "^10.9.1",
     "tsx": "^4.20.6",
     "typescript": "^4.8.4"
-  }
+  },
+  "packageManager": "pnpm@10.21.0"
 }

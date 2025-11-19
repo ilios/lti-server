@@ -15,23 +15,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
           node-version: 22
+          cache: pnpm
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
       - name: test
-        run: npm run test
+        run: pnpm run test
   build:
     name: Build SAM
     needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: install dependencies
-        run: npm install
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
