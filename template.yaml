@@ -55,16 +55,7 @@ Resources:
             Path: /dashboard
             Method: post
     Metadata:
-      BuildMethod: esbuild
-      BuildProperties:
-        Minify: true
-        Target: 'es2020'
-        Sourcemap: true
-        EntryPoints:
-          - app.ts
-        External:
-          - '@aws-sdk/client-s3'
-          - '@aws-sdk/client-dynamodb'
+      BuildMethod: makefile
   LoginFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -91,16 +82,7 @@ Resources:
             Path: /login
             Method: post
     Metadata:
-      BuildMethod: esbuild
-      BuildProperties:
-        Minify: true
-        Target: 'es2020'
-        Sourcemap: true
-        EntryPoints:
-          - app.ts
-        External:
-          - '@aws-sdk/client-s3'
-          - '@aws-sdk/client-dynamodb'
+      BuildMethod: makefile
   PayloadFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -117,16 +99,7 @@ Resources:
             Path: /payload
             Method: post
     Metadata:
-      BuildMethod: esbuild
-      BuildProperties:
-        Minify: true
-        Target: 'es2020'
-        Sourcemap: true
-        EntryPoints:
-          - app.ts
-        External:
-          - '@aws-sdk/client-s3'
-          - '@aws-sdk/client-dynamodb'
+      BuildMethod: makefile
   ConfigBucket:
     Type: AWS::S3::Bucket
     Properties:
