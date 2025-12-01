@@ -65,7 +65,7 @@ importers:
         version: 10.1.8(eslint@8.57.1)
       eslint-plugin-prettier:
         specifier: ^4.0.0
-        version: 4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8)
+        version: 4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@3.7.3)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -79,8 +79,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       prettier:
-        specifier: ^2.5.1
-        version: 2.8.8
+        specifier: ^3.7.3
+        version: 3.7.3
       ts-jest:
         specifier: ^29.0.5
         version: 29.4.5(@babel/core@7.28.5)(@jest/transform@30.2.0)(@jest/types@30.2.0)(babel-jest@30.2.0(@babel/core@7.28.5))(esbuild@0.27.0)(jest-util@30.2.0)(jest@30.2.0(@types/node@20.19.25)(ts-node@10.9.2(@types/node@20.19.25)(typescript@4.9.5)))(typescript@4.9.5)
@@ -2256,9 +2256,9 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier@2.8.8:
-    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
-    engines: {node: '>=10.13.0'}
+  prettier@3.7.3:
+    resolution: {integrity: sha512-QgODejq9K3OzoBbuyobZlUhznP5SKwPqp+6Q6xw6o8gnhr4O85L2U915iM2IDcfF2NPXVaM9zlo9tdwipnYwzg==}
+    engines: {node: '>=14'}
     hasBin: true
 
   pretty-format@30.2.0:
@@ -4626,10 +4626,10 @@ snapshots:
     dependencies:
       eslint: 8.57.1
 
-  eslint-plugin-prettier@4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8):
+  eslint-plugin-prettier@4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@3.7.3):
     dependencies:
       eslint: 8.57.1
-      prettier: 2.8.8
+      prettier: 3.7.3
       prettier-linter-helpers: 1.0.0
     optionalDependencies:
       eslint-config-prettier: 10.1.8(eslint@8.57.1)
@@ -5517,7 +5517,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier@2.8.8: {}
+  prettier@3.7.3: {}
 
   pretty-format@30.2.0:
     dependencies:
