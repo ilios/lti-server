@@ -35,7 +35,7 @@ export default async (request: Lti13Event, schoolConfig: Lti13SchoolConfig): Pro
     let iliosSearchId;
 
     switch (schoolConfig.ltiPostField) {
-      case 'ext_user_username':
+      case 'ext_user_username': {
         const ext = payload[`${IMS}/ext`] as Record<string, string>;
         if (Object.keys(ext).includes('user_username')) {
           iliosSearchId = ext.user_username;
@@ -44,7 +44,8 @@ export default async (request: Lti13Event, schoolConfig: Lti13SchoolConfig): Pro
           throw new Error('user_username missing from payload');
         }
         break;
-      case 'lis_person_sourcedid':
+      }
+      case 'lis_person_sourcedid': {
         const lis = payload[`${IMS}/lis`] as Record<string, string>;
         if (Object.keys(lis).includes('person_sourcedid')) {
           iliosSearchId = lis.person_sourcedid;
@@ -53,6 +54,7 @@ export default async (request: Lti13Event, schoolConfig: Lti13SchoolConfig): Pro
           throw new Error('person_sourcedid missing from payload');
         }
         break;
+      }
       default:
         console.info(schoolConfig, payload);
         throw new Error(`Undefined ${schoolConfig.ltiPostField} requested.`);
