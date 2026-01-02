@@ -13,7 +13,7 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Enable auto-merge for Dependabot PRs
         if: ${{(steps.metadata.outputs.update-type == 'version-update:semver-minor' || steps.metadata.outputs.update-type == 'version-update:semver-patch') }}
         run: gh pr merge --merge --auto ${{ github.event.number }}
