@@ -34,7 +34,7 @@
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
     "@types/node": "^25.0.6",
-    "@typescript-eslint/parser": "^5.10.2",
+    "@typescript-eslint/parser": "^8.52.0",
     "aws-sdk-client-mock": "^4.1.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
