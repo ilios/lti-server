@@ -14,11 +14,15 @@ describe('Generates a JWK pair', function () {
     expect(keyPair.publicJWK).toHaveProperty('kty', 'OKP');
     expect(keyPair.publicJWK).toHaveProperty('crv', 'Ed25519');
     expect(keyPair.publicJWK).toHaveProperty('x');
+    expect(keyPair.publicJWK).toHaveProperty('alg', 'EdDSA');
+    expect(keyPair.publicJWK).toHaveProperty('kid');
+    expect(keyPair.publicJWK).toHaveProperty('use', 'sig');
     expect(keyPair.publicJWK).not.toHaveProperty('d');
 
     expect(keyPair.privateJWK).toHaveProperty('kty', 'OKP');
     expect(keyPair.privateJWK).toHaveProperty('crv', 'Ed25519');
     expect(keyPair.privateJWK).toHaveProperty('x');
     expect(keyPair.privateJWK).toHaveProperty('d');
+    expect(keyPair.privateJWK).toHaveProperty('alg', 'EdDSA');
   });
 });
