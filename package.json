@@ -33,7 +33,7 @@
     "@types/aws-lambda": "^8.10.92",
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
-    "@types/node": "^25.2.2",
+    "@types/node": "^25.3.3",
     "@typescript-eslint/parser": "^8.52.0",
     "aws-sdk-client-mock": "^4.1.0",
     "eslint": "^10.0.2",
