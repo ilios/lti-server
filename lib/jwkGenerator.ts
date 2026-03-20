@@ -2,23 +2,29 @@ import { generateKeyPair, exportJWK } from 'jose';
 import { randomUUID } from 'node:crypto';
 
 export interface JWKPair {
-  publicJWK: object;
-  privateJWK: object;
+  publicJWK: JsonWebKey;
+  privateJWK: JsonWebKey;
 }
 
 export type GenerateJWKPair = () => Promise<JWKPair>;
 
 export default async (): Promise<JWKPair> => {
   try {
-    const { publicKey, privateKey } = await generateKeyPair('Ed25519', { extractable: true });
+    const { publicKey, privateKey } = await generateKeyPair('RS256', { extractable: true });
 
     const publicJWK = await exportJWK(publicKey);
     const privateJWK = await exportJWK(privateKey);
 
-    publicJWK.alg = 'EdDSA';
+    const kid = randomUUID();
+
+    publicJWK.alg = 'RS256';
     publicJWK.use = 'sig';
-    publicJWK.kid = randomUUID();
+    publicJWK.kid = kid;
     privateJWK.alg = 'EdDSA';
+
+    privateJWK.alg = 'RS256';
+    privateJWK.use = 'sig';
+    privateJWK.kid = kid;
 
     return {
       publicJWK,
