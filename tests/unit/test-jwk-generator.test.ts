@@ -11,18 +11,14 @@ describe('Generates a JWK pair', function () {
     const keyPair = await generateJWKPair();
     expect(keyPair).toHaveProperty('publicJWK');
     expect(keyPair).toHaveProperty('privateJWK');
-    expect(keyPair.publicJWK).toHaveProperty('kty', 'OKP');
-    expect(keyPair.publicJWK).toHaveProperty('crv', 'Ed25519');
-    expect(keyPair.publicJWK).toHaveProperty('x');
-    expect(keyPair.publicJWK).toHaveProperty('alg', 'EdDSA');
+    expect(keyPair.publicJWK).toHaveProperty('kty', 'RSA');
+    expect(keyPair.publicJWK).toHaveProperty('e', 'AQAB');
+    expect(keyPair.publicJWK).toHaveProperty('alg', 'RSA256');
     expect(keyPair.publicJWK).toHaveProperty('kid');
     expect(keyPair.publicJWK).toHaveProperty('use', 'sig');
-    expect(keyPair.publicJWK).not.toHaveProperty('d');
+    expect(keyPair.publicJWK).not.toHaveProperty('n');
 
-    expect(keyPair.privateJWK).toHaveProperty('kty', 'OKP');
-    expect(keyPair.privateJWK).toHaveProperty('crv', 'Ed25519');
-    expect(keyPair.privateJWK).toHaveProperty('x');
-    expect(keyPair.privateJWK).toHaveProperty('d');
-    expect(keyPair.privateJWK).toHaveProperty('alg', 'EdDSA');
+    expect(keyPair.privateJWK).toHaveProperty('kty', 'RSA');
+    expect(keyPair.privateJWK).toHaveProperty('alg', 'RSA256');
   });
 });

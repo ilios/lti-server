@@ -14,7 +14,9 @@
     "test": "pnpm run compile && pnpm run unit",
     "cli": "tsx bin/cli.ts",
     "lookup": "tsx bin/lookup.ts",
-    "generate-jwk": "tsx bin/generate-jwk.ts",
+    "jwk:generate": "tsx bin/generate-jwk.ts",
+    "jwk:sign": "tsx bin/sign-jwk.ts",
+    "jwk:validate": "tsx bin/validate-jwk.ts",
     "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
