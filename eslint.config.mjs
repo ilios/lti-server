@@ -17,4 +17,5 @@ export default defineConfig([
   eslint.configs.recommended,
   tseslint.configs.recommended,
   eslintPluginPrettierRecommended,
+  { rules: { 'preserve-caught-error': 'off' } },
 ]);
