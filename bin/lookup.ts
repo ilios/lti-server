@@ -13,9 +13,10 @@ program
   .argument('<apiNameSpace>', 'API namespace')
   .argument('<iliosSecret>', 'Ilios secret')
   .argument('<searchString>', 'Search string')
+  .option('--match-field <match field>', 'Field to match on', 'authentication-username')
   .action(
     async (ltiUserId: string, apiServer: string, apiNameSpace: string, iliosSecret: string, searchString: string) => {
-      const iliosMatchField = 'authentication-username';
+      const iliosMatchField: string = program.opts().matchField;
       const config: Lti11SchoolConfig = {
         ltiUserId: Number(ltiUserId),
         apiServer,
