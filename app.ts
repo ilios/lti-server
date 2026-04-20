@@ -157,6 +157,9 @@ export const loginHandler = async (event: APIGatewayProxyEvent): Promise<APIGate
   params.scope = 'openid';
   params.redirect_uri = target_link_uri;
   params.response_mode = 'form_post';
+  params.prompt = 'none';
+
+  console.log('Params: ' + JSON.stringify(params));
 
   const qp = querystring.encode(params);
 
