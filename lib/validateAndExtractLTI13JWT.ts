@@ -55,6 +55,16 @@ export default async (request: Lti13Event, schoolConfig: Lti13SchoolConfig): Pro
         }
         break;
       }
+      case 'custom_ilios_user': {
+        const custom = payload[`${IMS}/custom`] as Record<string, string>;
+        if (Object.keys(custom).includes('ilios_user')) {
+          iliosSearchId = custom.ilios_user;
+        } else {
+          console.info(custom);
+          throw new Error('custom ilios_user missing from payload');
+        }
+        break;
+      }
       default:
         console.info(schoolConfig, payload);
         throw new Error(`Undefined ${schoolConfig.ltiPostField} requested.`);
