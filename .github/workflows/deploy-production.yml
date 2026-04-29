@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
 
 concurrency: deploy-production
 
@@ -23,22 +24,30 @@ jobs:
 
   deploy:
     name: Deploy SAM
-    needs: test
     runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'workflow_dispatch' || needs.test.result == 'success'
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: us-west-2
+
     steps:
       - uses: actions/checkout@v6
+
       - uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - run: sam build --use-container
+
       - run: sam deploy --config-env prod --no-confirm-changeset --no-fail-on-empty-changeset
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-west-2
+
       - uses: act10ns/slack@v2
         if: failure()
         env:
