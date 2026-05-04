@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - uses: aws-actions/setup-sam@v2
+      - uses: aws-actions/setup-sam@v3
         with:
           use-installer: true
           token: ${{ secrets.GITHUB_TOKEN }}
