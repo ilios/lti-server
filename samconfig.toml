@@ -9,13 +9,21 @@ parameter_overrides = "StageName=dev LtiDashboardURL=https://dev-lti-dashboard.i
 
 [prod.global.parameters]
 stack_name = "sam-ilios-lti-server-prod"
+region = "us-west-2"
 parameter_overrides = "StageName=prod LtiDashboardURL=https://lti-dashboard.iliosproject.org"
 
 [default.build.parameters]
 cached = true
 parallel = true
 
+[prod.build.parameters]
+cached = true
+parallel = true
+
 [default.validate.parameters]
+lint = true
+
+[prod.validate.parameters]
 lint = true
 
 [default.deploy.parameters]
@@ -23,14 +31,32 @@ capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
 
+[prod.deploy.parameters]
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+
 [default.package.parameters]
+resolve_s3 = true
+
+[prod.package.parameters]
 resolve_s3 = true
 
 [default.sync.parameters]
 watch = true
 
+[prod.sync.parameters]
+watch = true
+
 [default.local_start_api.parameters]
+warm_containers = "EAGER"
+
+[prod.local_start_api.parameters]
 warm_containers = "EAGER"
 
 [default.local_start_lambda.parameters]
 warm_containers = "EAGER"
+
+[prod.local_start_lambda.parameters]
+warm_containers = "EAGER"
+
