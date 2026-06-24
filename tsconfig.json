@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "isolatedModules": true,
     "target": "es2020",
     "strict": true,
     "preserveConstEnums": true,
     "noEmit": true,
     "sourceMap": false,
-    "module": "es2015",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
