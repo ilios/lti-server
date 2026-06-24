@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "commander": "^14.0.2",
+    "commander": "^15.0.0",
     "esbuild": "^0.28.0",
     "jose": "^6.2.1",
     "jsonwebtoken": "^9.0.2"
