@@ -18,6 +18,8 @@ jobs:
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
       - uses: actions/checkout@v7
+        with:
+          allow-unsafe-pr-checkout: true
       - name: Enable auto-merge for Dependabot PRs
         if: ${{(steps.metadata.outputs.update-type == 'version-update:semver-minor' || steps.metadata.outputs.update-type == 'version-update:semver-patch') }}
         run: gh pr merge --merge --auto ${{ github.event.number }}
