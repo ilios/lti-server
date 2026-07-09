@@ -29,18 +29,16 @@ describe('Dashboard Response handler works', () => {
     });
 
     const ltiRequestValidator = jest.fn(() => true);
-    const readSchoolConfig = jest.fn(
-      async (): Promise<SchoolConfig> => ({
-        apiServer: '',
-        apiNameSpace: '',
-        ltiUserId: 0,
-        ltiPostField: 'foo',
-        iliosMatchField: '',
-        consumerSecret: '',
-        iliosSecret: '',
-        ltiVersion: 1.1,
-      }),
-    );
+    const readSchoolConfig = jest.fn(async (): Promise<SchoolConfig> => ({
+      apiServer: '',
+      apiNameSpace: '',
+      ltiUserId: 0,
+      ltiPostField: 'foo',
+      iliosMatchField: '',
+      consumerSecret: '',
+      iliosSecret: '',
+      ltiVersion: 1.1,
+    }));
     const findIliosUser = jest.fn(() => Promise.resolve(24));
     const createJWT = jest.fn(() => 'token');
 
