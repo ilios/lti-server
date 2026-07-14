@@ -62,7 +62,7 @@ describe('Get the ID for a user', function () {
       ltiVersion: 1.1,
     };
 
-    expect(async () => {
+    await expect(async () => {
       await findIliosUser(config, searchString, createJWT);
     }).rejects.toThrow(`Unable to find Ilios account for username "${searchString}".`);
     expect(fetchMock.mock.calls.length).toEqual(1);
