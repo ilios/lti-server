@@ -27,7 +27,7 @@
     "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.1079.0",
+    "@aws-sdk/client-dynamodb": "^3.1086.0",
     "@aws-sdk/client-s3": "^3.1085.0",
     "@aws-sdk/util-stream-node": "^3.374.0",
     "@eslint/js": "^10.0.1",
