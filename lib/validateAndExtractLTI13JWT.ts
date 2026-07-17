@@ -1,17 +1,17 @@
 import { Lti13Event } from './eventToRequest';
 import { jwtVerify, createRemoteJWKSet } from 'jose';
-import { Lti13SchoolConfig } from './readSchoolConfig';
+import { Lti13Config } from './readSchoolConfig';
 
 export interface Lti13Data {
   iliosSearchId: string;
   email: string;
 }
 
-export type ValidateAndExtractLTI13JWT = (request: Lti13Event, schoolConfig: Lti13SchoolConfig) => Promise<Lti13Data>;
+export type ValidateAndExtractLTI13JWT = (request: Lti13Event, schoolConfig: Lti13Config) => Promise<Lti13Data>;
 
 const IMS = 'https://purl.imsglobal.org/spec/lti/claim';
 
-export default async (request: Lti13Event, schoolConfig: Lti13SchoolConfig): Promise<Lti13Data> => {
+export default async (request: Lti13Event, schoolConfig: Lti13Config): Promise<Lti13Data> => {
   try {
     console.log('Validating and extracting LTI Payload', schoolConfig, request);
     // Create a Remote JSON Web Key Set (JWK Set) using the Moodle certs URL

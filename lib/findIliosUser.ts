@@ -17,7 +17,10 @@ export default async (config: SchoolConfig, searchString: string, createJWT: Cre
 
 async function fetchByUsername(config: SchoolConfig, createJWT: CreateJWT, username: string): Promise<number> {
   const url = `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${username}`;
-  const adminToken = createJWT(config.ltiUserId, config.apiServer, config.apiNameSpace, config.iliosSecret);
+  const adminToken =
+    'serviceToken' in config
+      ? config.serviceToken
+      : createJWT(config.ltiUserId, config.apiServer, config.apiNameSpace, config.iliosSecret);
   console.log(`Searching for user at ${url} with token ${adminToken}`);
   const data = await fetch(url, {
     headers: {
@@ -36,7 +39,10 @@ async function fetchByUsername(config: SchoolConfig, createJWT: CreateJWT, usern
 
 async function fetchByCampusId(config: SchoolConfig, createJWT: CreateJWT, campusId: string): Promise<number> {
   const url = `${config.apiServer}${config.apiNameSpace}/users?filters[campusId]=${campusId}`;
-  const adminToken = createJWT(config.ltiUserId, config.apiServer, config.apiNameSpace, config.iliosSecret);
+  const adminToken =
+    'serviceToken' in config
+      ? config.serviceToken
+      : createJWT(config.ltiUserId, config.apiServer, config.apiNameSpace, config.iliosSecret);
   console.log(`Searching for user at ${url} with token ${adminToken}`);
   const data = await fetch(url, {
     headers: {
