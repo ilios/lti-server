@@ -25,8 +25,8 @@ importers:
         version: 9.0.3
     devDependencies:
       '@aws-sdk/client-dynamodb':
-        specifier: ^3.1079.0
-        version: 3.1089.0
+        specifier: ^3.1090.0
+        version: 3.1090.0
       '@aws-sdk/client-s3':
         specifier: ^3.1085.0
         version: 3.1089.0
@@ -106,8 +106,8 @@ packages:
     resolution: {integrity: sha512-IImkbEyXdV6/uaF5r6Wkk+8718mQw1ll83j0a4a30R3JM/rHVFdWAiT4jtJpFjJiIwM/oJ6SxIxr0z2TaQUGqw==}
     engines: {node: '>=20.0.0'}
 
-  '@aws-sdk/client-dynamodb@3.1089.0':
-    resolution: {integrity: sha512-5sjA0CqMREHvCXK8i2eJLzOpVWwpbx7jnE/gQ7K4x8N76EvOfsW0qXvHGhIsNu4wb9A38cdUg/KwR3q+hE9QyQ==}
+  '@aws-sdk/client-dynamodb@3.1090.0':
+    resolution: {integrity: sha512-JjmuzG6XZG9vQFZ1Ob6kxJHz9U+x4Yxz+r717HeyYItRp+xRrGLNI5IggLDa9OfeYhq6mHJTZ6QMlyLI4EWK6w==}
     engines: {node: '>=20.0.0'}
 
   '@aws-sdk/client-s3@3.1089.0':
@@ -2310,7 +2310,7 @@ snapshots:
       '@smithy/types': 4.16.1
       tslib: 2.8.1
 
-  '@aws-sdk/client-dynamodb@3.1089.0':
+  '@aws-sdk/client-dynamodb@3.1090.0':
     dependencies:
       '@aws-sdk/core': 3.975.3
       '@aws-sdk/credential-provider-node': 3.972.70
