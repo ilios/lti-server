@@ -8,6 +8,7 @@ import ltiRequestValidator from './lib/ltiRequestValidator';
 import readSchoolConfig from './lib/readSchoolConfig';
 import findIliosUser from './lib/findIliosUser';
 import createJWT from './lib/createJWT';
+import requestJWT from './lib/requestJWT';
 import { generateAndStore, validate } from './lib/manageStateAndNonce';
 import validateAndExtractLTI13JWT from './lib/validateAndExtractLTI13JWT';
 
@@ -41,6 +42,7 @@ export const dashboardHandler = async (event: APIGatewayProxyEvent): Promise<API
           readSchoolConfig,
           findIliosUser,
           createJWT,
+          requestJWT,
           validate,
         );
       case 1.1:

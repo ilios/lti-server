@@ -9,6 +9,7 @@ import { CreateJWT } from './createJWT';
 import { ValidateAndExtractLTI13JWT } from './validateAndExtractLTI13JWT';
 import { Validate } from './manageStateAndNonce';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { RequestJWT } from './requestJWT';
 
 export const launchDashboardV11 = async (
   request: Lti11Event,
@@ -67,6 +68,7 @@ export const launchDashboardV13 = async (
   readSchoolConfig: ReadSchoolConfig,
   findIliosUser: FindIliosUser,
   createJWT: CreateJWT,
+  requestJWT: RequestJWT,
   validate: Validate,
 ): Promise<APIGatewayProxyResult> => {
   if (!process.env.DASHBOARD_APP_URL) {
@@ -91,13 +93,23 @@ export const launchDashboardV13 = async (
     const userId = await findIliosUser(config, payload.iliosSearchId, createJWT);
     if (userId) {
       console.log(`Found user ${userId}.`);
-      const token = createJWT(userId, config.apiServer, config.apiNameSpace, config.iliosSecret);
-
-      if (!process.env.DASHBOARD_APP_URL) {
-        throw new Error('DASHBOARD_APP_URL is not defined, nowhere to redirect authenticated user');
+      let token: string;
+      let targetUrl: string;
+      if ('serviceToken' in config) {
+        console.log(`Requesting token for ${userId} using service token ${config.serviceToken.substring(0, 15)}.`);
+        token = await requestJWT(userId, config);
+        const apiServer = config.apiServer.endsWith('/') ? config.apiServer : `${config.apiServer}/`;
+        targetUrl = `${apiServer}/lti-login/${token}`;
+        console.log(`Retrieved token for ${userId}.`);
+      } else {
+        if (!process.env.DASHBOARD_APP_URL) {
+          throw new Error('DASHBOARD_APP_URL is not defined, nowhere to redirect authenticated user');
+        }
+        token = createJWT(userId, config.apiServer, config.apiNameSpace, config.iliosSecret);
+        targetUrl = `${process.env.DASHBOARD_APP_URL}/login/${token}`;
+        console.log(`Generated token for ${userId}.`);
       }
 
-      const targetUrl = `${process.env.DASHBOARD_APP_URL}/login/${token}`;
       const response = {
         statusCode: 302,
         headers: {

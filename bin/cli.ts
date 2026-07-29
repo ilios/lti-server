@@ -1,4 +1,5 @@
-import createJWT from '../lib/createJWT';
+import { ServiceTokenConfig } from '../lib/readSchoolConfig';
+import requestJWT from '../lib/requestJWT';
 import { Command } from 'commander';
 
 const program = new Command();
@@ -8,12 +9,18 @@ program
   .description('Generate an LTI login URL with a JWT token')
   .argument('<ltiAppUrl>', 'LTI application URL')
   .argument('<apiServer>', 'API server URL')
-  .argument('<apiNameSpace>', 'API namespace')
-  .argument('<iliosSecret>', 'Ilios secret')
+  .argument('<serviceToken>', 'Service Token')
   .argument('<userId>', 'User ID')
-  .action((ltiAppUrl: string, apiServer: string, apiNameSpace: string, iliosSecret: string, userId: string) => {
-    const token = createJWT(Number(userId), apiServer, apiNameSpace, iliosSecret);
-    const targetUrl = `${ltiAppUrl}/login/${token}`;
+  .action(async (ltiAppUrl: string, apiServer: string, serviceToken: string, userId: string) => {
+    const config: ServiceTokenConfig = {
+      apiServer,
+      serviceToken,
+      apiNameSpace: '',
+      iliosMatchField: '',
+      ltiPostField: '',
+    };
+    const token = await requestJWT(Number(userId), config);
+    const targetUrl = `${ltiAppUrl}/lti-login/${token}`;
     process.stdout.write(targetUrl + '\n');
   });
 

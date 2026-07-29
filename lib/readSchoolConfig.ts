@@ -4,16 +4,24 @@ interface BaseConfig {
   apiServer: string;
   apiNameSpace: string;
   iliosMatchField: string;
-  ltiUserId: number;
-  iliosSecret: string;
   ltiPostField: string;
 }
 
-export interface Lti11SchoolConfig extends BaseConfig {
+interface SecretConfig extends BaseConfig {
+  ltiUserId: number;
+  iliosSecret: string;
+}
+
+export interface ServiceTokenConfig extends BaseConfig {
+  serviceToken: string;
+}
+
+export interface Lti11SchoolConfig extends SecretConfig {
   ltiVersion: 1.1;
   consumerSecret: string;
 }
-export interface Lti13SchoolConfig extends BaseConfig {
+
+export interface Lti13Config extends BaseConfig {
   ltiVersion: 1.3;
   keysetUrl: string;
   authenticationRequestUrl: string;
@@ -21,7 +29,10 @@ export interface Lti13SchoolConfig extends BaseConfig {
   clientId: string;
 }
 
-export type SchoolConfig = Lti11SchoolConfig | Lti13SchoolConfig;
+export interface Lti13SchoolConfig extends SecretConfig, Lti13Config {}
+export interface Lti13ServiceTokenSchoolConfig extends ServiceTokenConfig, Lti13Config {}
+
+export type SchoolConfig = Lti11SchoolConfig | Lti13SchoolConfig | Lti13ServiceTokenSchoolConfig;
 
 export type ReadSchoolConfig = (key: string, s3Client: S3Client) => Promise<SchoolConfig>;
 
