@@ -18,8 +18,8 @@ importers:
         specifier: ^0.28.0
         version: 0.28.1
       jose:
-        specifier: ^6.2.1
-        version: 6.2.3
+        specifier: ^6.2.4
+        version: 6.2.4
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.3
@@ -1716,8 +1716,8 @@ packages:
       node-notifier:
         optional: true
 
-  jose@6.2.3:
-    resolution: {integrity: sha512-YYVDInQKFJfR/xa3ojUTl8c2KoTwiL1R5Wg9YCydwH0x0B9grbzlg5HC7mMjCtUJjbQ/YnGEZIhI5tCgfTb4Hw==}
+  jose@6.2.4:
+    resolution: {integrity: sha512-N8acGzVsQy6M/fjFcxtysNc4Q379TcM5dM/qKkNtsHFji88yANnXTr7BLeP75iPnFwBfQzM/jg2BZ9+HZrHCZA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -4283,7 +4283,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  jose@6.2.3: {}
+  jose@6.2.4: {}
 
   js-tokens@4.0.0: {}
 
