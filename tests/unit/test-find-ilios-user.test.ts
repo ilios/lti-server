@@ -71,6 +71,29 @@ describe('Get the ID for a user', function () {
     );
   });
 
+  it('fails when the response is not ok for a username lookup', async function () {
+    fetchMock.mockResponseOnce('Ilios error message', { status: 500, statusText: 'Internal Server Error' });
+
+    const config: Lti11SchoolConfig = {
+      consumerSecret: 'school-name',
+      apiServer: 'https://test-ilios.com',
+      apiNameSpace: '/test/api/v3',
+      ltiUserId: 33,
+      iliosSecret: 'secret123',
+      ltiPostField: 'ext_user_username',
+      iliosMatchField: 'authentication-username',
+      ltiVersion: 1.1,
+    };
+
+    await expect(async () => {
+      await findIliosUser(config, searchString, createJWT);
+    }).rejects.toThrow(`Unable to lookup account in Ilios`);
+    expect(fetchMock.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls[0][0]).toEqual(
+      `${config.apiServer}${config.apiNameSpace}/authentications?filters[username]=${searchString}`,
+    );
+  });
+
   it('calls the api and returns a userId for campusId', async function () {
     fetchMock.mockResponseOnce(
       JSON.stringify({
@@ -91,6 +114,29 @@ describe('Get the ID for a user', function () {
 
     const result = await findIliosUser(config, searchString, createJWT);
     expect(result).toEqual(24);
+    expect(fetchMock.mock.calls.length).toEqual(1);
+    expect(fetchMock.mock.calls[0][0]).toEqual(
+      `${config.apiServer}${config.apiNameSpace}/users?filters[campusId]=${searchString}`,
+    );
+  });
+
+  it('fails when the response is not ok for a campusId lookup', async function () {
+    fetchMock.mockResponseOnce('Ilios error message', { status: 500, statusText: 'Internal Server Error' });
+
+    const config: Lti11SchoolConfig = {
+      consumerSecret: 'school-name',
+      apiServer: 'https://test-ilios.com',
+      apiNameSpace: '/test/api/v3',
+      ltiUserId: 33,
+      iliosSecret: 'secret123',
+      ltiPostField: 'ext_user_username',
+      iliosMatchField: 'user-campusid',
+      ltiVersion: 1.1,
+    };
+
+    await expect(async () => {
+      await findIliosUser(config, searchString, createJWT);
+    }).rejects.toThrow(`Unable to lookup account in Ilios`);
     expect(fetchMock.mock.calls.length).toEqual(1);
     expect(fetchMock.mock.calls[0][0]).toEqual(
       `${config.apiServer}${config.apiNameSpace}/users?filters[campusId]=${searchString}`,
