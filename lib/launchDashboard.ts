@@ -81,7 +81,7 @@ export const launchDashboardV13 = async (
     throw new Error('Unable to validate state/nonce');
   }
 
-  const config = await readSchoolConfig(request.clientId, s3Client);
+  const config = await readSchoolConfig(`${request.clientId}:${request.issuer}`, s3Client);
 
   if (config.ltiVersion !== 1.3) {
     throw new Error("Config doesn't match expected LTI version");

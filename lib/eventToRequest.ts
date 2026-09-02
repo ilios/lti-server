@@ -13,6 +13,7 @@ interface LtiEvent {
 export interface Lti13Event extends LtiEvent {
   ltiVersion: 1.3;
   clientId: string;
+  issuer: string;
   token: string;
   state: string;
   nonce: string;
@@ -34,10 +35,14 @@ export default (event: APIGatewayProxyEvent): Event => {
   const url = `${protocol}://${host}${path}`;
 
   if (typeof body.id_token === 'string') {
-    const { aud, nonce } = decodeJwt(body.id_token);
+    const { aud, nonce, iss } = decodeJwt(body.id_token);
 
     if (typeof aud !== 'string') {
       throw new Error('Bad aud sent');
+    }
+
+    if (typeof iss !== 'string') {
+      throw new Error('Bad iss sent');
     }
 
     if (typeof nonce !== 'string') {
@@ -57,6 +62,7 @@ export default (event: APIGatewayProxyEvent): Event => {
       token: body.id_token,
       state: body.state,
       clientId: aud,
+      issuer: iss,
       ltiVersion: 1.3,
       nonce,
     };

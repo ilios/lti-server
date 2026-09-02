@@ -86,7 +86,11 @@ describe('Parses a lambda event into a standard interface', function () {
   });
 
   it('returns a correctly structured response for v1.3 LTI Requests', function () {
-    (decodeJwt as jest.MockedFunction<typeof decodeJwt>).mockReturnValue({ aud: 'jackson', nonce: 'nce1' });
+    (decodeJwt as jest.MockedFunction<typeof decodeJwt>).mockReturnValue({
+      aud: 'jackson',
+      nonce: 'nce1',
+      iss: 'example.edu',
+    });
     const lti13TestEvent = { ...baseEvent };
 
     lti13TestEvent.body = `id_token=123&state=123S`;
