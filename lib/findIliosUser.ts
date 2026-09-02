@@ -27,6 +27,14 @@ async function fetchByUsername(config: SchoolConfig, createJWT: CreateJWT, usern
       'X-JWT-Authorization': `Token ${adminToken}`,
     },
   });
+  if (!data.ok) {
+    console.log(`
+      Unable to find Ilios account for username "${username}"
+      Request Status: ${data.status} / ${data.statusText}
+      Ilios Error: ${await data.text()}
+    `);
+    throw new Error(`Unable to lookup account in Ilios`);
+  }
   const result = await data.json();
   if ('authentications' in result && result.authentications.length > 0) {
     const userId = result.authentications[0].user;
@@ -49,6 +57,14 @@ async function fetchByCampusId(config: SchoolConfig, createJWT: CreateJWT, campu
       'X-JWT-Authorization': `Token ${adminToken}`,
     },
   });
+  if (!data.ok) {
+    console.log(`
+      Unable to find Ilios account for campusId "${campusId}".
+      Request Status: ${data.status} / ${data.statusText}
+      Ilios Error: ${await data.text()}
+    `);
+    throw new Error(`Unable to lookup account in Ilios`);
+  }
   const result = await data.json();
   if ('users' in result && result.users.length > 0) {
     const userId = result.users[0].id;
