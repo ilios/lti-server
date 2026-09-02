@@ -165,7 +165,7 @@ export const loginHandler = async (event: APIGatewayProxyEvent): Promise<APIGate
 
   const qp = querystring.encode(params);
 
-  const config = await readSchoolConfig(client_id, s3Client);
+  const config = await readSchoolConfig(`${client_id}:${iss}`, s3Client);
 
   if (config.ltiVersion !== 1.3) {
     console.log(config);
