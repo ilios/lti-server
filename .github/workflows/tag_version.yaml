@@ -51,7 +51,9 @@ jobs:
           git commit -m "${{env.new_tag}}"
           git tag v${{env.new_tag}} -m "Tagging the v${{env.new_tag}} ${{ github.event.inputs.releaseType }} release"
       - name: Push Changes
-        run: git push --follow-tags
+        run: |
+          git push
+          git push origin v${{env.new_tag}}
       - uses: act10ns/slack@v2
         if: failure()
         env:
