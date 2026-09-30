@@ -99,7 +99,7 @@ export const launchDashboardV13 = async (
         console.log(`Requesting token for ${userId} using service token ${config.serviceToken.substring(0, 15)}.`);
         token = await requestJWT(userId, config);
         const apiServer = config.apiServer.endsWith('/') ? config.apiServer : `${config.apiServer}/`;
-        targetUrl = `${apiServer}/lti-login/${token}`;
+        targetUrl = `${apiServer}lti-login/${token}`;
         console.log(`Retrieved token for ${userId}.`);
       } else {
         if (!process.env.DASHBOARD_APP_URL) {
