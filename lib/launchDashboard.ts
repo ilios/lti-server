@@ -101,6 +101,7 @@ export const launchDashboardV13 = async (
         const apiServer = config.apiServer.endsWith('/') ? config.apiServer : `${config.apiServer}/`;
         targetUrl = `${apiServer}/lti-login/${token}`;
         console.log(`Retrieved token for ${userId}.`);
+        console.log(`Redirecting to ${targetUrl} based on configured API server ${config.apiServer}`);
       } else {
         if (!process.env.DASHBOARD_APP_URL) {
           throw new Error('DASHBOARD_APP_URL is not defined, nowhere to redirect authenticated user');
